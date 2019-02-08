@@ -83,7 +83,6 @@ int	zrun(char **av)
 	 break;
       if (gl_repeat && j)
       {
-	 free(av[0]);
 	 av++;
       }
       j = 0;
