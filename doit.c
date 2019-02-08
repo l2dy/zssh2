@@ -23,10 +23,13 @@ void		doinput()
    while (1)
    {
       read_input(&cc, ibuf);
+      if (cc <= 0)
+         continue;
+
       if (escape_input(&cc, ibuf))
-	 rz_mode();
+         rz_mode();
       else
-	 write(gl_master, ibuf, cc);
+         write(gl_master, ibuf, cc);
    }   
    error("Should not be reached","");  /* not reached */
 }
@@ -48,7 +51,8 @@ void			dooutput()
    {
       cc = read(gl_master,obuf,sizeof(obuf));
       if (cc <= 0)
-	 continue;
+         continue;
+
       write(1,obuf,cc);
    }
    error("Should not be reached","");    /* not reached */
