@@ -29,46 +29,6 @@ char			**argv;
    return (0);
 }
 
-/* old stuff: test Alt-1 as escape sequence
- * scary stuff. fortunately it's dummied out
- */
-#if 0
-int		escape_input(cc,ibuf)
-int		*cc;
-unsigned char	*ibuf;
-{
-   if (*cc == 1 && ibuf[0] == 0xb1) /* Alt-1 X11 key code */
-      return (1);
-#ifndef DUMB_KEYBOARD
-   if (*cc >= 2 && ibuf[0] == 27 && ibuf[1] == '1') /* Alt-1 text key code */
-      return (1);
-#else
-   if (*cc == 1 && ibuf[0] == 27)
-   {
-      int	i;
-      char	c;
-      
-      usleep(40000);
-      i = fcntl(0,F_GETFL,0);
-      i |= O_NONBLOCK;
-      fcntl(0,F_SETFL,i);
-      read_input(cc,ibuf);
-      i = fcntl(0,F_GETFL,0);
-      i &= ~O_NONBLOCK;
-      fcntl(0,F_SETFL,i);
-      if (*cc >= 1 && ibuf[0] == '1') /* Alt-1 text key code, dumb keyboard */
-	 return (1);
-      else
-      {
-	 c = 27;
-	 write(gl_master,&c,1);
-      }
-   }
-#endif
-   return (0);
-}
-#endif /* 0 */
-
 /* new one: test escape sequence
  * NB: customizing Ctrl-Something escape sequences is easy ...
  *                 Alt-Something is not.

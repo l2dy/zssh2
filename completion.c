@@ -79,7 +79,6 @@ int		end;
       matches = RL_COMPLETION_MATCHES(text, command_generator);
    else if (text[0] == '~' && !strchr(text, '/'))
       matches = RL_COMPLETION_MATCHES(text, RL_USERNAME_COMPLETION_FUNCTION);
-/*    matches = completion_matches(text, tilde_generator); */
    else
       matches = RL_COMPLETION_MATCHES(text, RL_FILENAME_COMPLETION_FUNCTION);
    
@@ -117,42 +116,6 @@ int		state;
    /* If no names matched, then return NULL. */
    return ((char *)NULL);
 }
-
-
-/* Generator function for tilde completion.  STATE lets us know whether
- to start from scratch; without any state (i.e. STATE == 0), then we
- start at the top of the list. */
-#if 0
-char			*tilde_generator(text, state)
-char			*text;
-int			state;
-{
-   struct passwd	*pwd;
-   static int		len;
-   
-   /* If this is a new word to complete, initialize now.  This includes
-    * saving the length of TEXT for efficiency, and initializing the index
-    * variable to 0.
-    */
-   if (!state)
-   {
-      pwd = getpwent();
-      setpwent();
-      len = strlen(text + 1);
-   }
-   
-   rl_filename_completion_desired = 1;
-   /* Return the next homedir which partially matches. */
-   while ((pwd = getpwent()))
-   {
-      if (strncmp(pwd->pw_name, text + 1, len) == 0)
-	 return (str_cat("~", pwd->pw_name));
-   }
-   
-   /* If no names matched, then return NULL. */
-   return ((char *)NULL);
-}
-#endif /* 0 */
 
 char			*fake_generator(text, state)
 const char		*text;

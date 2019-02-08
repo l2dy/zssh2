@@ -3,7 +3,6 @@
 void initialize_readline(void);
 char **zssh_completion(char *text, int start, int end);
 char *command_generator(const char *text, int state);
-char *tilde_generator(char *text, int state);
 char *fake_generator(const char *text, int state);
 
 /* doit.c */

@@ -84,14 +84,6 @@
 #include <sys/time.h>
 #endif /*HAVE_SYS_TIME_H*/
 
-#if 0
-  #ifdef HAVE_SYS_TERMIOS_H
-  #include <sys/termios.h>
-  #else
-  #include <sys/termio.h>
-  #endif /*HAVE_TERMIO_H*/
-#endif
-
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif /*HAVE_UNISTD_H*/
