@@ -15,7 +15,7 @@
  */
 void		doinput()
 {
-   int			cc;
+   ssize_t			cc;
    unsigned char	ibuf[BUFSIZ];
    
    signal(SIGINT, sigint_handler);
@@ -34,7 +34,7 @@ void		doinput()
 /* copy output from the pty */
 void			dooutput()
 {
-   int			cc;
+   ssize_t		cc;
    char			obuf[BUFSIZ];
 
 #ifdef DEBUG

@@ -35,9 +35,8 @@ void init(int *argc, char ***argv);
 
 /* main.c */
 int main(int argc, char **argv);
-int escape_input(int *cc, unsigned char *ibuf);
-int escape_input(int *cc, unsigned char *ibuf);
-void read_input(int *cc, unsigned char *ibuf);
+int escape_input(ssize_t *cc, unsigned char *ibuf);
+void read_input(ssize_t *cc, unsigned char *ibuf);
 void rz_mode(void);
 void fail(void);
 void done(int ret);

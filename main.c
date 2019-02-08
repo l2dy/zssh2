@@ -74,7 +74,7 @@ unsigned char	*ibuf;
  *                 Alt-Something is not.
  */
 int		escape_input(cc,ibuf)
-int		*cc;
+ssize_t	*cc;
 unsigned char	*ibuf;
 {
    if (*cc == 1 && ibuf[0] == gl_escape - '@') /* escape key code */
@@ -83,7 +83,7 @@ unsigned char	*ibuf;
 }
 
 void		read_input(cc,ibuf)
-int		*cc;
+ssize_t	*cc;
 unsigned char	*ibuf;
 {
    *cc = read(0,ibuf,BUFSIZ);
