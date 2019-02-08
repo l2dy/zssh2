@@ -125,7 +125,7 @@ $(RPMSPEC) : $(RPMSPEC:.spec=.spec.tpl)
 
 
 version.h : force
-	echo '#define ZSSH_VERSION "' `cat VERSION` ', built' `date` '"' > version.h
+	echo '#define ZSSH_VERSION "' `cat VERSION`'"' > version.h
 
 fun.h : $(SRC)
 	protos -o fun.h $(SRC)
