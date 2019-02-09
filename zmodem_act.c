@@ -11,9 +11,7 @@
 #include "zssh.h"
 
 
-void	zact_shell(av,master)
-char	**av;
-int	master;
+void zact_shell(char **av, int master)
 {   
    if (!sfork(&gl_child_rz))
    {
@@ -28,9 +26,7 @@ int	master;
    }
 }
 
-void	zact_help(av,master)
-char	**av;
-int	master;
+void zact_help(char **av, int master)
 {
    printf("\n");
    printf("Builtins :\n");
@@ -66,17 +62,13 @@ int	master;
    printf("Report bugs to <gounter@users.sourceforge.net>\n");
 }
 
-void	zact_version(av,master)
-char	**av;
-int	master;
+void zact_version(char **av, int master)
 {
    version(0);
 }
 
 
-void	zact_cd(av,master)
-char	**av;
-int	master;
+void zact_cd(char **av, int master)
 {
    char	*str;
    
@@ -86,32 +78,24 @@ int	master;
       perror(str);
 }
 
-void	zact_suspend(av,master)
-char	**av;
-int	master;
+void zact_suspend(char **av, int master)
 {
    kill(getpid(), SIGTSTP);
 }
 
-void	zact_disconnect(av,master)
-char	**av;
-int	master;
+void zact_disconnect(char **av, int master)
 {
    done(0);
 }
 
 
-void	zact_repeat(av,master)
-char	**av;
-int	master;
+void zact_repeat(char **av, int master)
 {
    gl_repeat = 1;
 }
 
 /* create the hook process and map its std{in,out} to master */
-void	zact_hook_sub(av,master)
-char	**av;
-int	master;
+void zact_hook_sub(char **av, int master)
 {
    tcsetattr(gl_slave, TCSAFLUSH, &gl_rtt);
    if (!sfork(&gl_child_rz))
@@ -129,16 +113,12 @@ int	master;
 #endif
 }
 
-void	zact_hook(av,master)
-char	**av;
-int	master;
+void zact_hook(char **av, int master)
 {
    zact_hook_sub(av + 1, master);
 }
 
-void	zact_escape(av,master)
-char	**av;
-int	master;
+void zact_escape(char **av, int master)
 {
    if (!av[1])
       printf("Current escape key: ^%c (%s)\n",gl_escape,escape_help());
@@ -146,9 +126,7 @@ int	master;
       set_escape(av[1]);
 }
 
-void	zact_exit(av,master)
-char	**av;
-int	master;
+void zact_exit(char **av, int master)
 {
    write(master,"\n",1);
 }

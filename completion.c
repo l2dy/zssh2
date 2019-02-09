@@ -41,7 +41,7 @@
 /* Tell the GNU Readline library how to complete.  We want to try to complete
  on command names if this is the first word in the line, or on filenames
  if not. */
-void	initialize_readline()
+void initialize_readline(void)
 {
 #ifdef DEBUG
    printf("Using readline library version: %s\n", rl_library_version);
@@ -62,10 +62,7 @@ void	initialize_readline()
  the word to complete.  We can use the entire contents of rl_line_buffer
  in case we want to do some simple parsing.  Return the array of matches,
  or NULL if there aren't any. */
-char		**zssh_completion(text, start, end)
-char		*text;
-int		start;
-int		end;
+char **zssh_completion(char *text, int start, int end)
 {
    char		**matches;
    
@@ -88,9 +85,7 @@ int		end;
 /* Generator function for command completion.  STATE lets us know whether
  to start from scratch; without any state (i.e. STATE == 0), then we
  start at the top of the list. */
-char		*command_generator(text, state)
-const char	*text;
-int		state;
+char *command_generator(const char *text, int state)
 {
    static int	list_index, len;
    char		*name;
@@ -117,9 +112,7 @@ int		state;
    return ((char *)NULL);
 }
 
-char			*fake_generator(text, state)
-const char		*text;
-int			state;
+char *fake_generator(const char *text, int state)
 {
    return (0);
 }

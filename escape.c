@@ -10,11 +10,7 @@
 
 #include "zssh.h"
 
-int		pc_escape_double_chr(str,i,chr,c2)
-char		*str;
-int		*i;
-char		chr;
-char		c2;
+int pc_escape_double_chr(char *str, int *i, char chr, char c2)
 {
    int		j;
    
@@ -32,11 +28,7 @@ char		c2;
    return (1);
 }
 
-int		pc_escape_par(str,i,c1,c2)
-char		*str;
-int		*i;
-char		c1;
-char		c2;
+int pc_escape_par(char *str, int *i, char c1, char c2)
 {
    int		n;
    int		j;
@@ -65,11 +57,7 @@ char		c2;
 }
 
 
-int		pc_escape_backslash(str,i,c1,c2)
-char		*str;
-int		*i;
-char		c1;
-char		c2;
+int pc_escape_backslash(char *str, int *i, char c1, char c2)
 {
    if (str[*i] != '\\')
       return (0);
@@ -82,11 +70,7 @@ char		c2;
 
 
 
-int		pc_escape_dollar_par(str,i,c1,c2)
-char		*str;
-int		*i;
-char		c1;
-char		c2;
+int pc_escape_dollar_par(char *str, int *i, char c1, char c2)
 {
    int		n;
    int		j;

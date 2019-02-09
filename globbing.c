@@ -11,9 +11,7 @@
 #include "zssh.h"
 #include <glob.h>
 
-void	glob_args(ac,av)
-int	*ac;
-char	***av;
+void glob_args(int *ac, char ***av)
 {
    int		i,j,flags;
    glob_t	glb;
@@ -47,10 +45,7 @@ char	***av;
    *ac = ac2;
 }
 
-void	write_vector_word(str,argc,argv)
-char	*str;
-int	*argc;
-char	***argv;
+void write_vector_word(char *str, int *argc, char ***argv)
 {
    (*argv)[(*argc)++] = strdup(str);
    if (!(*argc % TAB_STEP))

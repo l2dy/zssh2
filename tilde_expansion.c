@@ -10,8 +10,7 @@
 
 #include "zssh.h"
 
-char                    *pc_get_tilde_expansion(pattern)
-char                    *pattern;
+char *pc_get_tilde_expansion(char *pattern)
 {
    char                 *str;
    struct passwd        *pass;
@@ -29,8 +28,7 @@ char                    *pattern;
    return (pass->pw_dir);
 }
 
-int             pc_tilde_expansion(str)
-char            **str;
+int pc_tilde_expansion(char **str)
 {
    int          i;
    int          j;

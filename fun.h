@@ -33,7 +33,7 @@ void command_line_options(int *argc, char ***argv);
 void init(int *argc, char ***argv);
 
 /* main.c */
-int main(int argc, char **argv);
+int main(int argc, char *argv[]);
 int escape_input(ssize_t *cc, unsigned char *ibuf);
 void read_input(ssize_t *cc, unsigned char *ibuf);
 void rz_mode(void);
@@ -50,12 +50,6 @@ void flush(int fd);
 int ask_user(char *question, int def_ans, int forced_ans);
 
 /* openpty.c */
-void getmaster(void);
-void getslave(void);
-void getmaster(void);
-void getslave(void);
-void getmaster(void);
-void getslave(void);
 void getmaster(void);
 void getslave(void);
 void my_tcsetpgrp(int fd, int pgrpid);

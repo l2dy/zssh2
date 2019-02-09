@@ -10,8 +10,7 @@
 
 #include "zssh.h"
 
-int		pc_test_escapes(str)
-char		*str;
+int pc_test_escapes(char *str)
 {
    int		i;
    int		j;

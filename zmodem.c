@@ -13,7 +13,7 @@
 #include <readline/history.h>
 
 /* prompt one line of input using readline */
-char	*zprompt()
+char *zprompt(void)
 {
    static char		*prompt = 0;
    char			*tmp;
@@ -44,10 +44,7 @@ char	*zprompt()
 }
 
 /* parse a line applying some shell expansions */
-int	zparse(str,av,ac)
-char	**str;
-char	***av;
-int	*ac;
+int zparse(char **str, char ***av, int *ac)
 {
    if (pc_test_escapes(*str) < 0)
       return (-1);
@@ -70,7 +67,7 @@ int	*ac;
 }
 
 
-int	zrun(char **av)
+int zrun(char **av)
 {
    int	i,j;
    
@@ -112,10 +109,7 @@ t_act_tab	cmdtab[] =
 };
 
 
-int	zaction(av,master,slave)
-char	**av;
-int	master;
-int	slave;
+int zaction(char **av, int master, int slave)
 {
    t_act_tab	*pt;
    char	c = 24; /* "^X" */

@@ -10,9 +10,7 @@
 
 #include "zssh.h"
 
-void	pc_new_tab(argc,argv)
-int	*argc;
-char	***argv;
+void pc_new_tab(int *argc, char ***argv)
 {
    char	**pt;
    
@@ -23,11 +21,7 @@ char	***argv;
 }
 
 
-void	pc_mk_word(str,pos,argc,argv)
-char	**str;
-int	*pos;
-int	*argc;
-char	***argv;
+void pc_mk_word(char **str, int *pos, int *argc, char ***argv)
 {
    int	len;
    
@@ -43,20 +37,14 @@ char	***argv;
       (*str)++; 
 }
 
-int		pc_ok_split(comm,pos,i)
-char		*comm;
-int		pos;
-int		i;
+int pc_ok_split(char *comm, int pos, int i)
 {
    if ((!pos || mi_is_whitespace(comm[pos - 1])))
       return (1);
    return (0);
 }
 
-void	pc_split_words(comm,argc,argv)
-char	*comm;
-int	*argc;
-char	***argv;
+void pc_split_words(char *comm, int *argc, char ***argv)
 {
    int	pos;
    int	i;

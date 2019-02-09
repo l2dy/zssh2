@@ -37,7 +37,7 @@ char			gl_escape; /* gl_escape = 'X' -> escape seq is ^X */
 char			**gl_shav; /* remote shell argv, defaults to ssh -e none  */
 
 
-void	init_gl(int ac, char **av)
+void init_gl(int ac, char **av)
 {
    gl_master = gl_slave = 0;
    gl_main_pid = getpid();
@@ -78,7 +78,7 @@ void	init_gl(int ac, char **av)
    gl_tt2 = gl_rtt;
 }
 
-void	version(int exit_prog)
+void version(int exit_prog)
 {
    printf("zssh version");
    printf(ZSSH_VERSION);
@@ -92,7 +92,7 @@ void	version(int exit_prog)
       exit (0);
 }
 
-void	usage()
+void usage(void)
 {
    printf("\
 Usage: zssh    [zssh options] [--] [ssh options]\n\
@@ -128,7 +128,7 @@ Usage: zssh    [zssh options] [--] [ssh options]\n\
  * str : "^X"
  * -> set gl_escape to X
  */
-int	set_escape(char *str)
+int set_escape(char *str)
 {
    if (!str || !str[0] || str[0] != '^')
    {
@@ -145,7 +145,7 @@ int	set_escape(char *str)
  * ^@ -> C-Space
  * ^X -> C-x
  */
-char	*escape_help()
+char *escape_help(void)
 {
    static char	str[40];
    
@@ -156,9 +156,7 @@ char	*escape_help()
    return (str);
 }
 
-void	command_line_options(argc,argv)
-int	*argc;
-char	***argv;
+void command_line_options(int *argc, char ***argv)
 {
    int	ac = *argc;
    char	**av = *argv;
@@ -215,9 +213,7 @@ char	***argv;
 }
 
 
-void			init(argc,argv)
-int			*argc;
-char			***argv;
+void init(int *argc, char ***argv)
 {
    char			*str;
 

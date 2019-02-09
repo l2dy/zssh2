@@ -25,7 +25,7 @@ static char	gl_slavename[GL_SLAVENAMELEN + 1] = {0};
 #include <util.h>
 #endif
 
-void	getmaster()
+void getmaster(void)
 {
 #ifdef DEBUG
    printf("Using openpty() for tty allocation\n");
@@ -34,7 +34,7 @@ void	getmaster()
       error(0,"openpty");
 }
 
-void	getslave()
+void getslave(void)
 {
    testslave(gl_slavename);
 }
@@ -51,7 +51,7 @@ void	getslave()
 /* _getpty(3) exists in SGI Irix 4.x, 5.x & 6.x -- it generates more
  pty's automagically when needed */
 
-void	getmaster()
+void getmaster(void)
 {
    char *name;
    
@@ -65,7 +65,7 @@ void	getmaster()
 }
 
 /* Open the slave side. */
-void	getslave()
+void getslave(void)
 {
 #ifdef DEBUG
    printf("Allocated tty: %s\n", gl_slavename);
@@ -180,7 +180,7 @@ void		getslave()
 
 static char	gl_line[] = "/dev/ptyXX";
 
-void	getmaster()
+void getmaster(void)
 {
    char		*pty, *bank, *cp;
    struct stat	stb;
@@ -224,7 +224,7 @@ void	getmaster()
 }
 
 
-void	getslave()
+void getslave(void)
 {
    if ( (gl_slave = open(gl_slavename, O_RDWR | O_NOCTTY)) < 0)
       error(0, gl_slavename);
@@ -242,7 +242,7 @@ void	getslave()
 #endif /* BSD style ptys */
 /****************************************************************************/
 
-void	my_tcsetpgrp(int fd, int pgrpid)
+void my_tcsetpgrp(int fd, int pgrpid)
 {
    int ret;
    
@@ -257,7 +257,7 @@ void	my_tcsetpgrp(int fd, int pgrpid)
 }
 
 /* set raw mode */
-void	my_cfmakeraw(struct termios *pt)
+void my_cfmakeraw(struct termios *pt)
 {
    /* beginning of 'official' cfmakeraw function */
    pt->c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP
@@ -278,7 +278,7 @@ void	my_cfmakeraw(struct termios *pt)
 /* called by getslave()
  * test tty permissions and warn user if insecure
  */
-void			testslave(char *ttyname)
+void testslave(char *ttyname)
 {
    struct stat		st;
    struct passwd	*pwd;
@@ -315,7 +315,7 @@ void			testslave(char *ttyname)
 /* init slave after call to getslave
  * make slave the controlling tty for current process
  */
-void	initslave()
+void initslave(void)
 {
    close(gl_master);
    setsid();
@@ -347,7 +347,7 @@ void	initslave()
 /* Call grantpt(). If it fails, prompt the user whether
  * to continue anyway despite the security issue.
  */
-void	call_grantpt()
+void call_grantpt(void)
 {
    static int	answered = 0;
    

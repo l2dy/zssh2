@@ -11,8 +11,7 @@
 #include "zssh.h"
 
 
-char            *chr2str(chr)
-char            chr;
+char *chr2str(char chr)
 {
    char         *pt;
 
@@ -32,8 +31,7 @@ char    whitespaces[] =
 };
 
 
-int     mi_is_whitespace(chr)
-char    chr;
+int mi_is_whitespace(char chr)
 {
    int  j;
    
@@ -44,9 +42,7 @@ char    chr;
 }
 
 /* exit from program */
-void		error(s1,s2)
-char		*s1;
-char		*s2;
+void error(char *s1, char *s2)
 {
    if (!s1)
       perror(s2);
@@ -58,9 +54,7 @@ char		*s2;
 }
 
 /* just displays an error message */
-int		error_msg(s1,s2)
-char		*s1;
-char		*s2;
+int error_msg(char *s1, char *s2)
 {
    if (!s1)
       perror(s2);
@@ -70,9 +64,7 @@ char		*s2;
 }
 
 
-void	op_shift(argv,n)
-char	**argv;
-int	n;
+void op_shift(char **argv, int n)
 {
    int	i;
    
@@ -88,8 +80,7 @@ int	n;
 }
 
 
-void	flush(fd)
-int	fd;
+void flush(int fd)
 {
    int	i, mode, tot = 0;
    char	buff[4096];
@@ -111,7 +102,7 @@ int	fd;
 /* ask the user a question, answer should be y, Y, n, or N
  * or nothing in which case def_ans is returned
  */
-int	ask_user(char *question, int def_ans, int forced_ans)
+int ask_user(char *question, int def_ans, int forced_ans)
 {
    char	*str;
    char	buf[50];

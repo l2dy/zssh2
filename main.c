@@ -11,9 +11,7 @@
 #include "zssh.h"
 
 
-int			main(argc, argv)
-int			argc;
-char			**argv;
+int main(int argc, char *argv[])
 {
    init(&argc,&argv);
    printf("Press ^%c (%s) to enter file transfer mode, then ? for help\n",
@@ -33,18 +31,14 @@ char			**argv;
  * NB: customizing Ctrl-Something escape sequences is easy ...
  *                 Alt-Something is not.
  */
-int		escape_input(cc,ibuf)
-ssize_t	*cc;
-unsigned char	*ibuf;
+int escape_input(ssize_t *cc, unsigned char *ibuf)
 {
    if (*cc == 1 && ibuf[0] == gl_escape - '@') /* escape key code */
       return (1);
    return (0);
 }
 
-void		read_input(cc,ibuf)
-ssize_t	*cc;
-unsigned char	*ibuf;
+void read_input(ssize_t *cc, unsigned char *ibuf)
 {
    *cc = read(0,ibuf,BUFSIZ);
 #ifdef DEBUG_CRAZY
@@ -60,7 +54,7 @@ unsigned char	*ibuf;
 
 /* switch to local shell mode
  */
-void	rz_mode()
+void rz_mode(void)
 {
    char	**av;
    int	ac;
@@ -92,14 +86,13 @@ void	rz_mode()
 }
 
 
-void	fail()
+void fail(void)
 {
    done(1);
 }
 
 /* should be called only by main process */
-void		done(ret)
-int		ret;
+void done(int ret)
 {
    if (getpid() != gl_main_pid)
       error("done() should only be called by main process","");

@@ -22,10 +22,7 @@ t_escape	escape_tab[] =
 {0,		0,			0,	0} 
 };
 
-int		pc_escape_multi(str,i,flags)
-char		*str;
-int		*i;
-int		flags;
+int pc_escape_multi(char *str, int *i, int flags)
 {
    int		j;
    int		k;

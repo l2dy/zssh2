@@ -15,10 +15,7 @@
  * Ex : str_shift("1234567",2,3) -> "1267"
  *                   |||
  */
-void	str_shift(str,i,n)
-char	*str;
-int	i;
-int	n;
+void str_shift(char *str, int i, int n)
 {
    int	j;
    
@@ -28,9 +25,7 @@ int	n;
 }
 
 
-char	*str_n_dup(str,n)
-char	*str;
-int	n;
+char *str_n_dup(char *str, int n)
 {
    char	*pt;
    int	i;
@@ -45,9 +40,7 @@ int	n;
 }
 
 
-char    *str_cat(str1,str2)
-char    *str1;
-char    *str2;
+char *str_cat(char *str1, char *str2)
 {
    int  i;
    int  len1;
@@ -66,11 +59,7 @@ char    *str2;
 }
 
 
-void    str_sub_repl(str,sub_beg,sub_len,sub_repl)
-char    **str;
-int     sub_beg;
-int     sub_len;
-char    *sub_repl;
+void str_sub_repl(char **str, int sub_beg, int sub_len, char *sub_repl)
 {  
    char *s1;
    char *s2;
@@ -87,8 +76,7 @@ char    *sub_repl;
 
 
 
-void		*smalloc(n)
-unsigned int	n;
+void *smalloc(unsigned int n)
 {
    void		*pt;
    
@@ -113,7 +101,7 @@ unsigned int	n;
  * if pid_child is non zero, also avoids race condition that would occur
  * if the child's pid must be known by the parent *before* the child dies.
  */
-int	sfork(volatile int *pid_child)
+int sfork(volatile int *pid_child)
 {
    sigset_t	mask;
    sigset_t	old_mask;

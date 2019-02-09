@@ -13,7 +13,7 @@
 /* copy input to the pty, test for escape key and
  * switch to local shell mode if it found
  */
-void		doinput()
+void doinput(void)
 {
    ssize_t			cc;
    unsigned char	ibuf[BUFSIZ];
@@ -35,7 +35,7 @@ void		doinput()
 }
 
 /* copy output from the pty, suspended in rz_mode() */
-void			dooutput()
+void dooutput(void)
 {
    ssize_t		cc;
    char			obuf[BUFSIZ];
@@ -62,10 +62,7 @@ void			dooutput()
  * shav defaults to [ "ssh" "-e" "none"  ] (zssh)
  *               or [ "telnet" "-8" "-E" ] (ztelnet)
  */
-void	doshell(ac,av,shav)
-int	ac;
-char	**av;
-char	**shav;
+void doshell(int ac, char **av, char **shav)
 {
   char	**argv;
    int	i,j;

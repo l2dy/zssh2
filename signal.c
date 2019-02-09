@@ -17,7 +17,7 @@
  */
 
 #ifdef DEBUG
-void	print_process_status(int pid, int s)
+void print_process_status(int pid, int s)
 {
    if (WIFEXITED(s))
       printf("process %i: exit value: %i\n", pid, WEXITSTATUS(s));
@@ -30,8 +30,7 @@ void	print_process_status(int pid, int s)
 #endif 
 
 
-RETSIGTYPE	sigchld_handler(sig)
-int             sig;
+RETSIGTYPE sigchld_handler(int sig)
 {
    int          old_errno;
    int          pid;
@@ -67,8 +66,7 @@ int             sig;
    }
 }
 
-RETSIGTYPE	sigint_handler(sig)
-int		sig;
+RETSIGTYPE sigint_handler(int sig)
 {
    signal(SIGINT, sigint_handler);
    gl_repeat = 0;
@@ -80,8 +78,7 @@ int		sig;
    }
 }
 
-RETSIGTYPE	sigwinch_handler(sig)
-int		sig;
+RETSIGTYPE sigwinch_handler(int sig)
 {
    signal(SIGWINCH, sigwinch_handler);
    ioctl(0, TIOCGWINSZ, &gl_win);
