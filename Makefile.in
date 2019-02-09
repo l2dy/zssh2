@@ -70,8 +70,7 @@ $(NAME) : $(EXTRA_DEPS) version.h ${OBJS}
 	$(CC) -o $(NAME) $(LDFLAGS) $(OBJS) $(LIBS)
 
 ztelnet : $(NAME)
-	@-rm $@ > /dev/null 2>&1
-	ln $(NAME) $@
+	ln -f $(NAME) $@
 
 install :
 	strip $(NAME)
