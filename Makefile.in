@@ -72,20 +72,22 @@ $(NAME) : $(EXTRA_DEPS) version.h ${OBJS}
 ztelnet : $(NAME)
 	ln -f $(NAME) $@
 
-install :
+install : all
+	$(INSTALL) -m 0755 -d @bindir@
 	$(INSTALL) -m 0755 zssh @bindir@
 	ln -f @bindir@/zssh  @bindir@/ztelnet
+	$(INSTALL) -m 0755 -d @mandir@/man1
 	$(INSTALL) -m 0644 $(MANS) @mandir@/man1
 
 uninstall :
 	-cd @bindir@      && rm $(PRGS)
 	-cd @mandir@/man1 && rm $(MANS)
 
-fake_readline : force
+fake_readline : FORCE
 	-cd fake_readline && $(MAKE)
 
 # create source archive in ~/backup
-tgz $(TGZ) : distclean force
+tgz $(TGZ) : distclean FORCE
 	@cdir=`pwd` && cdir=`basename $$cdir` && cd .. && \
 	echo "#################################################" && \
 	echo $(TAR) -cvzf "$(BACKDIR)/$(TGZ)" "$$cdir" && \
@@ -107,7 +109,7 @@ $(RPMSPEC) : $(RPMSPEC:.spec=.spec.tpl)
 	cat $(RPMSPEC:.spec=.spec.tpl) >> $(RPMSPEC)
 
 
-version.h : force
+version.h : VERSION
 	echo '#define ZSSH_VERSION "' `cat VERSION`'"' > version.h
 
 fun.h : $(SRC)
@@ -130,8 +132,9 @@ autoconf:
 	autoconf
 	autoheader
 
-force :
-
 
 $(OBJS) : $(INCL)
 init.o : version.h
+
+.PHONY: distclean clean install uninstall rpm fake_readline
+FORCE:
