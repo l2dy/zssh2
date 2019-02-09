@@ -1,1 +1,1 @@
-#define ZSSH_VERSION " 1.5c"
+#define ZSSH_VERSION " 1.5d"
