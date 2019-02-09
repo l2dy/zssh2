@@ -73,7 +73,6 @@ ztelnet : $(NAME)
 	ln -f $(NAME) $@
 
 install :
-	strip $(NAME)
 	$(INSTALL) -m 0711 zssh @bindir@
 	ln -f @bindir@/zssh  @bindir@/ztelnet
 	$(INSTALL) -m 0644 $(MANS) @mandir@/man1
