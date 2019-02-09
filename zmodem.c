@@ -80,7 +80,7 @@ int	zrun(char **av)
    {
       i = zaction(av, gl_master, gl_slave);
       if (i >= 100)
-	 break;
+	 break; /* avoid repeating C_* >= 100 actions */
       if (gl_repeat && j)
       {
 	 av++;

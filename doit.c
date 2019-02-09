@@ -22,19 +22,19 @@ void		doinput()
    signal(SIGWINCH, sigwinch_handler);
    while (1)
    {
-      read_input(&cc, ibuf);
+      read_input(&cc, ibuf); /* read from stdin */
       if (cc <= 0)
          continue;
 
-      if (escape_input(&cc, ibuf))
+      if (escape_input(&cc, ibuf)) /* check for ^@ */
          rz_mode();
       else
-         write(gl_master, ibuf, cc);
+         write(gl_master, ibuf, cc); /* write to pty master */
    }   
    error("Should not be reached","");  /* not reached */
 }
 
-/* copy output from the pty */
+/* copy output from the pty, suspended in rz_mode() */
 void			dooutput()
 {
    ssize_t		cc;
@@ -49,11 +49,11 @@ void			dooutput()
    close(gl_slave);
    while (1)
    {
-      cc = read(gl_master,obuf,sizeof(obuf));
+      cc = read(gl_master,obuf,sizeof(obuf)); /* read from pty master */
       if (cc <= 0)
          continue;
 
-      write(1,obuf,cc);
+      write(1,obuf,cc); /* write to stdout */
    }
    error("Should not be reached","");    /* not reached */
 }

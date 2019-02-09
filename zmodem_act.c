@@ -108,7 +108,7 @@ int	master;
    gl_repeat = 1;
 }
 
-
+/* create the hook process and map its std{in,out} to master */
 void	zact_hook_sub(av,master)
 char	**av;
 int	master;

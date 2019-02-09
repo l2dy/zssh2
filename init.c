@@ -66,8 +66,10 @@ void	init_gl(int ac, char **av)
       gl_shav[3] = 0;
    }
    
+   /* initialize gl_tt from stdin */
    if (tcgetattr(0, &gl_tt) < 0)
       error(0, "tcgetattr");
+   /* initialize gl_win from stdin */
    if (ioctl(0, TIOCGWINSZ, (char *)&gl_win) < 0)
       error(0, "ioctl TIOCGWINSZ");
    
