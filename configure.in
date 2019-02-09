@@ -44,10 +44,10 @@ AC_PROG_GCC_TRADITIONAL
 dnl Check if the C compiler understands -Wall
 OLD_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -Wall"
-AC_CACHE_CHECK([that the C compiler understands -Wall],zssh_cc_wall, [
+AC_CACHE_CHECK([that the C compiler understands -Wall],zssh_cv_wall, [
     AC_TRY_COMPILE([ ],[ ],
-        zssh_cc_wall=yes, zssh_cc_wall=no)])
-if test x"$zssh_cc_wall" != x"yes"; then
+        zssh_cv_wall=yes, zssh_cv_wall=no)])
+if test x"$zssh_cv_wall" != x"yes"; then
   CFLAGS="$OLD_CFLAGS"
 fi
 
