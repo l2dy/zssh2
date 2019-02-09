@@ -28,7 +28,7 @@ machine while using the secure shell (
 ). It is intended to be a
 convenient alternative to
 .B scp
-, allowing to transfer files without having to
+, allowing one to transfer files without having to
 open another session and re-authenticate oneself.
 
 zssh is an interactive wrapper for ssh used to switch the ssh connection
@@ -112,7 +112,7 @@ print help and tips
 
 .TP 20
 .B hook prg [args]
-Hook program 'prg' on the the pty. Its standard input and output will go
+Hook program 'prg' on the pty. Its standard input and output will go
 through the ssh channel.
 .br 
 typing 'sz'/'rz' is in fact equivalent to 'hook sz'/'hook rz'
@@ -227,7 +227,7 @@ Other arguments are passed verbatim to ssh/telnet/whatever.
 
 .TP 10
 .B ZSSHESCAPE
-Setting the ZSSHESCAPE environment variable allows to override the default
+Setting the ZSSHESCAPE environment variable allows one to override the default
 escape sequence. ZSSHESCAPE should contain only two characters of the form
 `^X', meaning that ^X is to be the new escape sequence.
 
