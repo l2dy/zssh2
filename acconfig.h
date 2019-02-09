@@ -1,12 +1,12 @@
 /*
- ** acconfig.h
- ** 
- ** Made by (Matthieu Lucotte)
- ** Login   <gounter@users.sourceforge.net>
- ** 
- ** Started on  Sat Oct  6 02:21:45 2001 Matthieu Lucotte
- ** Last update Thu Oct 11 16:51:21 2001 Matthieu Lucotte
- */
+** acconfig.h
+**
+** Made by (Matthieu Lucotte)
+** Login   <gounter@users.sourceforge.net>
+**
+** Started on  Sat Oct  6 02:21:45 2001 Matthieu Lucotte
+** Last update Thu Oct 11 16:51:21 2001 Matthieu Lucotte
+*/
 
 /*
  * acconfig.h  - template used by autoheader to create config.h.in
