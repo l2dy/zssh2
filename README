@@ -10,8 +10,8 @@ to open another session and re-authenticate oneself.
 
 Files  are transferred through  the zmodem  protocol, using  the rz  and sz
 commands.   If you  don't  already have  them,  the sz/rz  programs can  be
-installed from Uwe Ohse's lrzsz package included in this directory.
-for more information, see http://www.ohse.de/uwe/software/lrzsz.html
+installed from Uwe Ohse's lrzsz package, for more information, see
+http://www.ohse.de/uwe/software/lrzsz.html
 
 the readline library is also required.
 

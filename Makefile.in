@@ -86,21 +86,6 @@ uninstall :
 fake_readline : force
 	-cd fake_readline && $(MAKE)
 
-lrzsz :
-	cd lrzsz-0.12.20 && ./configure --prefix=@prefix@
-	cd lrzsz-0.12.20 && $(MAKE)
-
-lrzsz_links :
-	ln -s @bindir@/lrz @bindir@/rz
-	ln -s @bindir@/lsz @bindir@/sz
-	ln -s @bindir@/lrb @bindir@/rb
-	ln -s @bindir@/lsb @bindir@/sb
-	ln -s @bindir@/lrx @bindir@/rx
-	ln -s @bindir@/lsx @bindir@/sx
-
-lrzsz_install :
-	cd lrzsz-0.12.20 && $(MAKE) install
-
 # create source archive in ~/backup
 tgz $(TGZ) : distclean force
 	@cdir=`pwd` && cdir=`basename $$cdir` && cd .. && \
@@ -140,7 +125,6 @@ clean :
 
 distclean : clean
 	-rm Makefile config.cache config.status config.log config.scan config.h TAGS
-	-(cd lrzsz-0.12.20 && $(MAKE) distclean)
 	-(cd fake_readline && $(MAKE) distclean)
 	-(cd test && $(MAKE) distclean)
 
