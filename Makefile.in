@@ -1,5 +1,5 @@
 # 
-# Makefile.in for zssh
+# @configure_input@
 # 
 # Made by Matthieu Lucotte
 # Login   <gounter@users.sourceforge.net>
@@ -11,6 +11,7 @@
 #System specific vars
 
 prefix		= @prefix@
+datarootdir	= @datarootdir@
 exec_prefix	= @exec_prefix@
 
 MAKE		=  @MAKE@

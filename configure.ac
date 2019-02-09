@@ -85,7 +85,8 @@ if test -z "$fakereadline"; then
 	  )
 
   dnl Check for completion function names. they are different in version 4.2 and < 4.2
-  AC_CHECK_FUNC(rl_username_completion_function, AC_DEFINE(HAVE_READLINE_4_2_OR_GREATER))
+  AC_CHECK_FUNC(rl_username_completion_function, AC_DEFINE(HAVE_READLINE_4_2_OR_GREATER,
+    1, [Define this if you have libreadline v4.2 or greater]))
 fi
 
 
@@ -101,22 +102,22 @@ AC_CHECK_FUNCS(_getpty getpseudotty openpty grantpt unlockpt)
 AC_MSG_CHECKING(for pseudo ttys)
 if test -c /dev/getpty && test $ac_cv_func_getpseudotty = yes
 then
-  AC_DEFINE(HAVE_GETPSEUDOTTY)
+  AC_DEFINE(HAVE_GETPSEUDOTTY, 1, [Define this if you have getpseudotty() (DYNIX/ptx 2.1)])
   AC_MSG_RESULT(getpseudotty)
 else
 if test -c /dev/ptmx && test -c /dev/pts/0
 then
-  AC_DEFINE(HAVE_DEV_PTMX)
+  AC_DEFINE(HAVE_DEV_PTMX, 1, [Define if you have SYSV-style /dev/ptmx and /dev/pts/.])
   AC_MSG_RESULT(streams ptys)
 else
 if test -c /dev/ptc && test -c /dev/pts || test -d /dev/pts
 then
-  AC_DEFINE(HAVE_DEV_PTS_AND_PTC)
+  AC_DEFINE(HAVE_DEV_PTS_AND_PTC, 1, [Define if you have /dev/pts and /dev/ptc devices (as in AIX).])
   AC_MSG_RESULT(/dev/pts and /dev/ptc)
 else
 if test -c /dev/ptyp10
 then
-  AC_DEFINE(HAVE_DEV_PTYP10)
+  AC_DEFINE(HAVE_DEV_PTYP10, 1, [Define this if you have sco-style pty:s (ptyp0, ..., ptyp9, ptyp10...)])
   AC_MSG_RESULT(sco-style ptys)
 else
   AC_MSG_RESULT(bsd-style ptys)

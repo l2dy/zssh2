@@ -1,3 +1,5 @@
+#
+# @configure_input@
 
 MAKE		=  @MAKE@
 INSTALL		=  @INSTALL@
