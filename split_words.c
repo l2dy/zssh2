@@ -25,11 +25,10 @@ void pc_mk_word(char **str, int *pos, int *argc, char ***argv)
 {
 	int len;
 
-	if ((len = *pos))
-	{
-		(*argv)[(*argc)++] = str_n_dup(*str,len);
+	if ((len = *pos)) {
+		(*argv)[(*argc)++] = str_n_dup(*str, len);
 		if (!(*argc % TAB_STEP))
-			pc_new_tab(argc,argv);
+			pc_new_tab(argc, argv);
 		*str += len;
 		*pos = 0;
 	}
@@ -40,8 +39,8 @@ void pc_mk_word(char **str, int *pos, int *argc, char ***argv)
 int pc_ok_split(char *comm, int pos, int i)
 {
 	if ((!pos || mi_is_whitespace(comm[pos - 1])))
-		return (1);
-	return (0);
+		return 1;
+	return 0;
 }
 
 void pc_split_words(char *comm, int *argc, char ***argv)
@@ -54,14 +53,13 @@ void pc_split_words(char *comm, int *argc, char ***argv)
 	while (mi_is_whitespace(*comm))
 		comm++;
 	for (pos = 0; comm[pos];)
-		if ((i = pc_escape_multi(comm,&pos,ESC_COMMON)) <= 0)
-		{
+		if ((i = pc_escape_multi(comm, &pos, ESC_COMMON)) <= 0) {
 			if (mi_is_whitespace(comm[pos]))
-				pc_mk_word(&comm,&pos,argc,argv);
+				pc_mk_word(&comm, &pos, argc, argv);
 			else
 				pos++;
 		}
-	pc_mk_word(&comm,&pos,argc,argv);
+	pc_mk_word(&comm, &pos, argc, argv);
 	(*argv)[(*argc)++] = 0;
 }
 

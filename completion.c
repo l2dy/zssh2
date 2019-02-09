@@ -53,7 +53,7 @@ void initialize_readline(void)
 	   so that if zssh_completion() fails nothing is completed */
 	rl_completion_entry_function = fake_generator;
 	/* Tell the completer that we want a crack first. */
-	rl_attempted_completion_function = (rl_completion_func_t *) zssh_completion;
+	rl_attempted_completion_function = (rl_completion_func_t *)zssh_completion;
 
 }
 
@@ -79,7 +79,7 @@ char **zssh_completion(char *text, int start, int end)
 	else
 		matches = RL_COMPLETION_MATCHES(text, RL_FILENAME_COMPLETION_FUNCTION);
 
-	return (matches);
+	return matches;
 }
 
 /* Generator function for command completion.  STATE lets us know whether
@@ -93,28 +93,26 @@ char *command_generator(const char *text, int state)
 	/* If this is a new word to complete, initialize now.  This includes
 	   saving the length of TEXT for efficiency, and initializing the index
 	   variable to 0. */
-	if (!state)
-	{
+	if (!state) {
 		list_index = 0;
-		len = strlen (text);
+		len = strlen(text);
 	}
 
 	/* Return the next name which partially matches from the command list. */
-	while ((name = cmdtab[list_index].name))
-	{
+	while ((name = cmdtab[list_index].name)) {
 		list_index++;
 
 		if (strncmp(name, text, len) == 0)
-			return (strdup(name));
+			return strdup(name);
 	}
 
 	/* If no names matched, then return NULL. */
-	return ((char *)NULL);
+	return (char *)NULL;
 }
 
 char *fake_generator(const char *text, int state)
 {
-	return (0);
+	return 0;
 }
 
 #endif /* HAVE_LIBREADLINE */

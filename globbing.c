@@ -13,7 +13,7 @@
 
 void glob_args(int *ac, char ***av)
 {
-	int i,j,flags;
+	int i, j, flags;
 	glob_t glb;
 	int ac2;
 	char         **av2;
@@ -27,15 +27,12 @@ void glob_args(int *ac, char ***av)
 /*#endif */
 	av2 = smalloc(TAB_STEP * sizeof(char *));
 	ac2 = 0;
-	for (i = 0; (*av)[i]; i++)
-	{
+	for (i = 0; (*av)[i]; i++) {
 		if (glob((*av)[i], flags, 0, &glb) != 0 || !glb.gl_pathc)
 			write_vector_word((*av)[i], &ac2, &av2);
 		else
-		{
 			for (j = 0; glb.gl_pathv[j]; j++)
 				write_vector_word(glb.gl_pathv[j], &ac2, &av2);
-		}
 		free((*av)[i]);
 		globfree(&glb);
 	}
@@ -49,5 +46,5 @@ void write_vector_word(char *str, int *argc, char ***argv)
 {
 	(*argv)[(*argc)++] = strdup(str);
 	if (!(*argc % TAB_STEP))
-		pc_new_tab(argc,argv);
+		pc_new_tab(argc, argv);
 }

@@ -16,10 +16,10 @@ int pc_test_escapes(char *str)
 	int j;
 
 	for (i = 0; str[i];)
-		if ((j = pc_escape_multi(str,&i,ESC_COMMON | ESC_PARENT)) < 0)
-			return (-1);
+		if ((j = pc_escape_multi(str, &i, ESC_COMMON | ESC_PARENT)) < 0)
+			return -1;
 		else
 		if (!j)
 			i++;
-	return (1);
+	return 1;
 }

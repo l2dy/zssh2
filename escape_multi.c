@@ -29,13 +29,12 @@ int pc_escape_multi(char *str, int *i, int flags)
 	t_escape     *pt;
 
 	k = 0;
-	for (pt = escape_tab; pt->flag; pt++)
-	{
+	for (pt = escape_tab; pt->flag; pt++) {
 		j = 0;
-		if (flags & pt->flag && (j = pt->f(str,i,pt->c1,pt->c2)) < 0)
-			return (-1);
+		if (flags & pt->flag && (j = pt->f(str, i, pt->c1, pt->c2)) < 0)
+			return -1;
 		k += j;
 	}
-	return (k);
+	return k;
 }
 

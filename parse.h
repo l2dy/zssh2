@@ -14,8 +14,7 @@
 #define TAB_STEP        512
 
 
-typedef struct
-{
+typedef struct {
 	char         *str;
 	long (*f)(long, long);
 	int prio;
@@ -24,8 +23,7 @@ typedef struct
 
 #include <pwd.h>
 
-typedef struct
-{
+typedef struct {
 	char         *user;
 	char         *dir;
 }               t_tilde_ent;
@@ -33,8 +31,7 @@ typedef struct
 #define TILDE_TAB_STEP          100
 #define TILDE_SEARCH_STEP       10
 
-typedef struct
-{
+typedef struct {
 	t_tilde_ent  *tilde_tab;
 	int tilde_tab_size;
 }               t_pc_env;
@@ -51,8 +48,7 @@ typedef struct
 	                 ESC_BCKSLASH | ESC_DOLLAR_PAR | ESC_DOLLAR_BRA)
 
 
-typedef struct
-{
+typedef struct {
 	int flag;
 	int (*f)(char *str, int *i, char c1, char c2);
 	char c1;

@@ -11,7 +11,7 @@
 #include "zssh.h"
 
 #define GL_SLAVENAMELEN 50
-static char gl_slavename[GL_SLAVENAMELEN + 1] = {0};
+static char gl_slavename[GL_SLAVENAMELEN + 1] = { 0 };
 
 #define NEEDED
 
@@ -31,7 +31,7 @@ void getmaster(void)
 	printf("Using openpty() for tty allocation\n");
 #endif
 	if (openpty(&gl_master, &gl_slave, gl_slavename, &gl_tt, &gl_win) < 0)
-		error(0,"openpty");
+		error(0, "openpty");
 }
 
 void getslave(void)
@@ -123,7 +123,7 @@ void            getmaster()
 #endif /* HAVE_GRANTPT */
 #ifdef HAVE_UNLOCKPT
 	if ( unlockpt(gl_master) < 0 ) /* clear slave's lock flag  */
-		error(0,"unlockpt");
+		error(0, "unlockpt");
 #endif /* HAVE_UNLOCKPT */
 }
 
@@ -141,8 +141,7 @@ void            getslave()
 
 
 #ifdef HAVE_ISASTREAM
-	if (isastream(gl_slave))
-	{
+	if (isastream(gl_slave)) {
 #ifdef DEBUG
 		printf("Now calling ioctls to push term emulation modules:\n");
 		printf("  ioctl I_PUSH ptem\n");
@@ -150,9 +149,9 @@ void            getslave()
 		printf("  ioctl I_PUSH ttcompat\n");
 #endif
 		if ( ioctl(gl_slave, I_PUSH, "ptem") < 0 )
-			error(0,"ioctl I_PUSH ptem");
+			error(0, "ioctl I_PUSH ptem");
 		if ( ioctl(gl_slave, I_PUSH, "ldterm") < 0 )
-			error(0,"ioctl I_PUSH ldterm");
+			error(0, "ioctl I_PUSH ldterm");
 		/* Allow ttcompat to fail silently */
 		ioctl(gl_slave, I_PUSH, "ttcompat");
 	}
@@ -190,18 +189,15 @@ void getmaster(void)
 	printf("Using BSD style tty allocation routine\n");
 #endif
 	pty = &gl_line[strlen("/dev/ptyp")];
-	for (bank = "pqrs"; *bank; bank++)
-	{
+	for (bank = "pqrs"; *bank; bank++) {
 		gl_line[strlen("/dev/pty")] = *bank;
 		*pty = '0';
 		if (stat(gl_line, &stb) < 0)
 			break;
-		for (cp = "0123456789abcdef"; *cp; cp++)
-		{
+		for (cp = "0123456789abcdef"; *cp; cp++) {
 			*pty = *cp;
 			gl_master = open(gl_line, O_RDWR);
-			if (gl_master >= 0)
-			{
+			if (gl_master >= 0) {
 				strncpy(gl_slavename, gl_line, GL_SLAVENAMELEN);
 				gl_slavename[strlen("/dev/")] = 't';
 #ifdef HAVE_GRANTPT
@@ -209,7 +205,7 @@ void getmaster(void)
 #endif /* HAVE_GRANTPT */
 #ifdef HAVE_UNLOCKPT
 				if (unlockpt(gl_master) < 0)
-					error(0,"unlockpt");
+					error(0, "unlockpt");
 #endif /* HAVE_UNLOCKPT */
 
 				/* verify slave side is usable */
@@ -260,11 +256,11 @@ void my_tcsetpgrp(int fd, int pgrpid)
 void my_cfmakeraw(struct termios *pt)
 {
 	/* beginning of 'official' cfmakeraw function */
-	pt->c_iflag &= ~(IGNBRK|BRKINT|PARMRK|ISTRIP
-	                 |INLCR|IGNCR|ICRNL|IXON);
+	pt->c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP
+	                 | INLCR | IGNCR | ICRNL | IXON);
 	pt->c_oflag &= ~OPOST;
-	pt->c_lflag &= ~(ECHO|ECHONL|ICANON|ISIG|IEXTEN);
-	pt->c_cflag &= ~(CSIZE|PARENB);
+	pt->c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
+	pt->c_cflag &= ~(CSIZE | PARENB);
 	pt->c_cflag |= CS8;
 	/* end of 'official' cfmakeraw function */
 
@@ -286,25 +282,22 @@ void testslave(char *ttyname)
 
 	if (fstat(gl_slave, &st) < 0)
 		error(0, "fstat tty");
-	if (st.st_uid != getuid())
-	{ /* tty is not owned by the user, this can be a security issue so prompt the user */
+	if (st.st_uid != getuid()) { /* tty is not owned by the user, this can be a security issue so prompt the user */
 		if ( (pwd = getpwuid(st.st_uid)) )
 			printf("*** %s: This tty is owned by someone else (%s) !\n", ttyname, pwd->pw_name);
 		else
-			printf("*** %s: This tty is owned by someone else (uid %lu) !\n", ttyname, (long) st.st_uid);
+			printf("*** %s: This tty is owned by someone else (uid %lu) !\n", ttyname, (long)st.st_uid);
 		ask = 1;
 	}
 	if (st.st_mode & S_IWOTH)
 		/* tty is world writeable: this can be abused but there is no serious security issue here
 		 * so just print a warning.   */
 		printf("*** %s: this tty is world writeable !\n", ttyname);
-	if (st.st_mode & S_IROTH)
-	{ /* tty is world readable: this is very insecure so prompt the user */
+	if (st.st_mode & S_IROTH) { /* tty is world readable: this is very insecure so prompt the user */
 		printf("*** %s: this tty is world readable !\n", ttyname);
 		ask = 1;
 	}
-	if (ask)
-	{
+	if (ask) {
 		printf("*** This is a security issue\n");
 		if (!ask_user("Do you want to continue anyway ?", 0, 1))
 			error("aborting\n", "");
@@ -324,7 +317,7 @@ void initslave(void)
 	 * make sure it is indeed the case
 	 */
 	if (open("/dev/tty", O_RDWR) >= 0)
-		error("Couldn't drop controlling tty\n","");
+		error("Couldn't drop controlling tty\n", "");
 
 #ifdef TIOCSCTTY
 	if (ioctl(gl_slave, TIOCSCTTY, 0) < 0)
@@ -356,8 +349,7 @@ void call_grantpt(void)
 	 */
 	signal(SIGCHLD, SIG_DFL);
 
-	if (grantpt(gl_master) < 0 && !answered)
-	{
+	if (grantpt(gl_master) < 0 && !answered) {
 		perror("grantpt");
 		printf("*** Calling grantpt() failed. This can be a security issue\n"
 		       "*** as another user may be able to spy on this session\n");

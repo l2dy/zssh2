@@ -13,8 +13,7 @@
 
 void zact_shell(char **av, int master)
 {
-	if (!sfork(&gl_child_rz))
-	{
+	if (!sfork(&gl_child_rz)) {
 		signal(SIGINT, SIG_DFL);
 		signal(SIGWINCH, SIG_DFL);
 		my_tcsetpgrp(0, getpgrp());
@@ -22,7 +21,7 @@ void zact_shell(char **av, int master)
 		signal(SIGINT, SIG_DFL);
 		execvp(av[0], av);
 		perror(av[0]);
-		exit (1);
+		exit(1);
 	}
 }
 
@@ -98,18 +97,17 @@ void zact_repeat(char **av, int master)
 void zact_hook_sub(char **av, int master)
 {
 	tcsetattr(gl_slave, TCSAFLUSH, &gl_rtt);
-	if (!sfork(&gl_child_rz))
-	{
-		signal(SIGINT,SIG_DFL);
-		signal(SIGWINCH,SIG_DFL);
-		dup2(master,0);
-		dup2(master,1);
-		execvp(av[0],av);
-		error("error: execvp %s\n",av[0]);
-		exit (1);
+	if (!sfork(&gl_child_rz)) {
+		signal(SIGINT, SIG_DFL);
+		signal(SIGWINCH, SIG_DFL);
+		dup2(master, 0);
+		dup2(master, 1);
+		execvp(av[0], av);
+		error("error: execvp %s\n", av[0]);
+		exit(1);
 	}
 #ifdef DEBUG
-	printf("launching %s (pid=%i) ...\n",av[0],gl_child_rz);
+	printf("launching %s (pid=%i) ...\n", av[0], gl_child_rz);
 #endif
 }
 
@@ -121,14 +119,14 @@ void zact_hook(char **av, int master)
 void zact_escape(char **av, int master)
 {
 	if (!av[1])
-		printf("Current escape key: ^%c (%s)\n",gl_escape,escape_help());
+		printf("Current escape key: ^%c (%s)\n", gl_escape, escape_help());
 	else
 		set_escape(av[1]);
 }
 
 void zact_exit(char **av, int master)
 {
-	write(master,"\n",1);
+	write(master, "\n", 1);
 }
 
 

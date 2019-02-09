@@ -18,7 +18,7 @@ char *chr2str(char chr)
 	pt = smalloc(2 * sizeof(char));
 	*pt = chr;
 	pt[1] = 0;
-	return (pt);
+	return pt;
 }
 
 
@@ -37,8 +37,8 @@ int mi_is_whitespace(char chr)
 
 	for (j = 0; whitespaces[j]; j++)
 		if (chr == whitespaces[j])
-			return (1);
-	return (0);
+			return 1;
+	return 0;
 }
 
 /* exit from program */
@@ -50,7 +50,7 @@ void error(char *s1, char *s2)
 		fprintf(stderr, s1, s2);
 	if (getpid() == gl_main_pid)
 		done(-1);
-	exit (-1);
+	exit(-1);
 }
 
 /* just displays an error message */
@@ -60,7 +60,7 @@ int error_msg(char *s1, char *s2)
 		perror(s2);
 	else
 		fprintf(stderr, s1, s2);
-	return (-1);
+	return -1;
 }
 
 
@@ -69,8 +69,7 @@ void op_shift(char **argv, int n)
 	int i;
 
 	for (i = 0; i < n; i++)
-		if (argv[i])
-		{
+		if (argv[i]) {
 			free(argv[i]);
 			argv[i] = 0;
 		}
@@ -85,17 +84,15 @@ void flush(int fd)
 	int i, mode, tot = 0;
 	char buff[4096];
 
-	mode = fcntl(fd,F_GETFL,0);
-	fcntl(fd,F_SETFL,mode | O_NONBLOCK);
-	do
-	{
-		tot += i = read(fd,buff,4096);
+	mode = fcntl(fd, F_GETFL, 0);
+	fcntl(fd, F_SETFL, mode | O_NONBLOCK);
+	do {
+		tot += i = read(fd, buff, 4096);
 		usleep(50);
-	}
-	while (i > 0);
-	fcntl(fd,F_SETFL,mode);
+	} while (i > 0);
+	fcntl(fd, F_SETFL, mode);
 #ifdef DEBUG
-	printf("flushed fd#%i: %i\n",fd,tot);
+	printf("flushed fd#%i: %i\n", fd, tot);
 #endif
 }
 
@@ -109,30 +106,27 @@ int ask_user(char *question, int def_ans, int forced_ans)
 	int res = def_ans;
 
 	if (gl_force)
-		return (forced_ans);
+		return forced_ans;
 	if (def_ans)
 		str = "[Y/n]";
 	else
 		str = "[y/N]";
-	while (1)
-	{
+	while (1) {
 		printf("%s %s: ", question, str);
 		fflush(stdout);
 		while (read(0, buf, 49) <= 0)
 			;
 		if (buf[0] == '\n')
 			break;
-		if (buf[0] == 'y' || buf[0] == 'Y')
-		{
+		if (buf[0] == 'y' || buf[0] == 'Y') {
 			res = 1;
 			break;
 		}
-		if (buf[0] == 'n' || buf[0] == 'N')
-		{
+		if (buf[0] == 'n' || buf[0] == 'N') {
 			res = 0;
 			break;
 		}
 	}
-	return (res);
+	return res;
 }
 

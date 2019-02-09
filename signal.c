@@ -40,17 +40,14 @@ RETSIGTYPE sigchld_handler(int sig)
 	old_errno = errno;
 	signal(SIGCHLD, sigchld_handler);
 	die = 0;
-	while (1)
-	{
+	while (1) {
 		errno = EINTR;
 		pid = 0;
-		while (pid <= 0 && errno == EINTR)
-		{
+		while (pid <= 0 && errno == EINTR) {
 			errno = 0;
-			pid = waitpid (WAIT_ANY, &s, WNOHANG);
+			pid = waitpid(WAIT_ANY, &s, WNOHANG);
 		}
-		if (pid <= 0)
-		{
+		if (pid <= 0) {
 			errno = old_errno;
 			if (die)
 				done(0);
@@ -70,8 +67,7 @@ RETSIGTYPE sigint_handler(int sig)
 {
 	signal(SIGINT, sigint_handler);
 	gl_repeat = 0;
-	if (gl_child_rz)
-	{
+	if (gl_child_rz) {
 		kill(gl_child_rz, SIGKILL); /* SIGTERM seems to cause sz to interfere with ^Xs */
 		/*                            so let's be more persuasive =) */
 		gl_interrupt = 1;

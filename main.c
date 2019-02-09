@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-	init(&argc,&argv);
+	init(&argc, &argv);
 	printf("Press ^%c (%s) to enter file transfer mode, then ? for help\n",
 	       gl_escape, escape_help());
 	fflush(stdout);
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		doshell(argc, argv, gl_shav); /* std{in,out,err} mapped to gl_slave in initslave() */
 
 	doinput();
-	return (0);
+	return 0;
 }
 
 /* new one: test escape sequence
@@ -34,13 +34,13 @@ int main(int argc, char *argv[])
 int escape_input(ssize_t *cc, unsigned char *ibuf)
 {
 	if (*cc == 1 && ibuf[0] == gl_escape - '@') /* escape key code */
-		return (1);
-	return (0);
+		return 1;
+	return 0;
 }
 
 void read_input(ssize_t *cc, unsigned char *ibuf)
 {
-	*cc = read(0,ibuf,BUFSIZ);
+	*cc = read(0, ibuf, BUFSIZ);
 #ifdef DEBUG_CRAZY
 	{
 		int i;
@@ -58,19 +58,18 @@ void rz_mode(void)
 {
 	char **av;
 	int ac;
-	int i,k;
+	int i, k;
 	char *line;
 
 	gl_local_shell_mode = 1;
-	kill(gl_child_output,SIGSTOP);  /* suspend output */
+	kill(gl_child_output, SIGSTOP); /* suspend output */
 	printf("\n");
 	printf("\r");
 /*   tcgetattr(0, &gl_rtt); */
 	tcgetattr(gl_slave, &gl_tt2);   /* save slave tty state */
 	/* TCSAFLUSH causes problems on some systems */
 	tcsetattr(0, TCSANOW, &gl_tt);  /* was in raw mode */
-	for (i = 0; i < 100; )                  /* action codes >= 100 exit */
-	{
+	for (i = 0; i < 100; ) {        /* action codes >= 100 exit */
 		line = zprompt();
 		if (zparse(&line, &av, &ac) < 0)
 			continue;
@@ -95,18 +94,17 @@ void fail(void)
 void done(int ret)
 {
 	if (getpid() != gl_main_pid)
-		error("done() should only be called by main process","");
+		error("done() should only be called by main process", "");
 	if (gl_child_rz)
 		kill(gl_child_rz, SIGTERM);
 	if (gl_child_shell)
 		kill(gl_child_shell, SIGTERM);
-	if (gl_child_output)
-	{
+	if (gl_child_output) {
 		usleep(500);
 		kill(gl_child_output, SIGTERM);
 		tcsetattr(0, TCSAFLUSH, &gl_tt);
 	}
-	exit (ret);
+	exit(ret);
 }
 
 

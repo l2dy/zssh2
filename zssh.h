@@ -127,10 +127,9 @@
 #define C_EXIT          103
 
 
-#define min(a,b)        ((a) < (b) ? (a) : (b))
+#define min(a, b)        ((a) < (b) ? (a) : (b))
 
-typedef struct
-{
+typedef struct {
 	char         *name;
 	int n;
 	void (*f)(char **av, int master);
@@ -149,8 +148,8 @@ extern volatile sig_atomic_t gl_child_rz;               /* pid of child forked f
 extern int gl_local_shell_mode;
 
 extern volatile sig_atomic_t gl_interrupt;
-extern volatile sig_atomic_t gl_repeat;        /* repeat action forever */
-extern int gl_force;                            /* don't ask user questions */
+extern volatile sig_atomic_t gl_repeat; /* repeat action forever */
+extern int gl_force;                    /* don't ask user questions */
 
 extern struct termios gl_tt;            /* initial term */
 extern struct termios gl_rtt;           /* raw mode term */
@@ -159,8 +158,8 @@ extern struct winsize gl_win;
 
 extern sigset_t gl_sig_mask;
 
-extern char gl_escape;                     /* gl_escape = 'X' -> escape seq is ^X */
-extern char                     **gl_shav; /* remote shell argv, defaults to ssh -e none  */
+extern char gl_escape;                          /* gl_escape = 'X' -> escape seq is ^X */
+extern char                     **gl_shav;      /* remote shell argv, defaults to ssh -e none  */
 
 #include "parse.h"
 

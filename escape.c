@@ -15,17 +15,17 @@ int pc_escape_double_chr(char *str, int *i, char chr, char c2)
 	int j;
 
 	if (str[*i] != chr)
-		return (0);
+		return 0;
 	for ((*i)++; str[*i] && str[*i] != chr;)
-		if ((j = pc_escape_backslash(str,i,0,0)) < 0)
-			return (-1);
+		if ((j = pc_escape_backslash(str, i, 0, 0)) < 0)
+			return -1;
 		else
 		if (!j)
 			(*i)++;
 	if (!str[*i])
-		return (error_msg("Unmatched %s\n",chr2str(chr)));
+		return error_msg("Unmatched %s\n", chr2str(chr));
 	(*i)++;
-	return (1);
+	return 1;
 }
 
 int pc_escape_par(char *str, int *i, char c1, char c2)
@@ -34,14 +34,13 @@ int pc_escape_par(char *str, int *i, char c1, char c2)
 	int j;
 
 	if (str[*i] != c1)
-		return (0);
+		return 0;
 	n = 1;
 	for ((*i)++; str[*i];)
-		if ((j = pc_escape_multi(str,i,ESC_COMMON)) < 0)
-			return (-1);
+		if ((j = pc_escape_multi(str, i, ESC_COMMON)) < 0)
+			return -1;
 		else
-		if (!j)
-		{
+		if (!j) {
 			if (str[*i] == c1)
 				n++;
 			if (str[*i] == c2)
@@ -51,21 +50,21 @@ int pc_escape_par(char *str, int *i, char c1, char c2)
 			(*i)++;
 		}
 	if (!str[*i])
-		return (error_msg("Unmatched (\n",""));
+		return error_msg("Unmatched (\n", "");
 	(*i)++;
-	return (1);
+	return 1;
 }
 
 
 int pc_escape_backslash(char *str, int *i, char c1, char c2)
 {
 	if (str[*i] != '\\')
-		return (0);
+		return 0;
 	(*i)++;
 	if (!str[*i])
-		return (error_msg("Premature end of line\n",""));
+		return error_msg("Premature end of line\n", "");
 	(*i)++;
-	return (1);
+	return 1;
 }
 
 
@@ -76,15 +75,13 @@ int pc_escape_dollar_par(char *str, int *i, char c1, char c2)
 	int j;
 
 	if (str[*i] != '$' || str[*i + 1] != c1)
-		return (0);
+		return 0;
 	for (n = 1, *i += 2; str[*i];)
-		if ((j = pc_escape_multi(str,i,ESC_COMMON | ESC_PARENT)) < 0)
-			return (-1);
+		if ((j = pc_escape_multi(str, i, ESC_COMMON | ESC_PARENT)) < 0)
+			return -1;
 		else
-		if (!j)
-		{
-			if (str[*i] == '$' && str[*i + 1] == c1)
-			{
+		if (!j) {
+			if (str[*i] == '$' && str[*i + 1] == c1) {
 				(*i)++;
 				n++;
 			}
@@ -95,7 +92,7 @@ int pc_escape_dollar_par(char *str, int *i, char c1, char c2)
 			(*i)++;
 		}
 	if (!str[*i])
-		return (error_msg("Unmatched $(\n",""));
+		return error_msg("Unmatched $(\n", "");
 	(*i)++;
-	return (1);
+	return 1;
 }

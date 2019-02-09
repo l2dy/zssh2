@@ -31,12 +31,12 @@ char *str_n_dup(char *str, int n)
 	int i;
 	int len;
 
-	len = min(strlen(str),n);
+	len = min(strlen(str), n);
 	pt = smalloc(len + 1);
 	for (i = 0; i < len; i++)
 		pt[i] = str[i];
 	pt[len] = 0;
-	return (pt);
+	return pt;
 }
 
 
@@ -50,12 +50,12 @@ char *str_cat(char *str1, char *str2)
 	len1 = strlen(str1);
 	len2 = strlen(str2);
 	if ((str_res = smalloc(len1 + len2 + 1)) == 0)
-		return (0);
+		return 0;
 	for (i = 0; i < len1; i++)
 		str_res[i] = str1[i];
 	for (i = 0; i <= len2; i++)
 		str_res[len1 + i] = str2[i];
-	return (str_res);
+	return str_res;
 }
 
 
@@ -64,11 +64,11 @@ void str_sub_repl(char **str, int sub_beg, int sub_len, char *sub_repl)
 	char *s1;
 	char *s2;
 
-	s1 = s2 = str_n_dup(*str,sub_beg);
-	s1 = str_cat(s1,sub_repl);
+	s1 = s2 = str_n_dup(*str, sub_beg);
+	s1 = str_cat(s1, sub_repl);
 	free(s2);
 	s2 = s1;
-	s1 = str_cat(s1,*str + sub_beg + sub_len);
+	s1 = str_cat(s1, *str + sub_beg + sub_len);
 	free(s2);
 	free(*str);
 	*str = s1;
@@ -81,9 +81,9 @@ void *smalloc(unsigned int n)
 	void         *pt;
 
 	if ((pt = malloc(n)) != 0)
-		return (pt);
+		return pt;
 	error(0, "malloc");
-	exit (1);
+	exit(1);
 }
 
 
@@ -118,6 +118,6 @@ int sfork(volatile int *pid_child)
 		if (pid_child)
 			*pid_child = pid;
 	sigprocmask(SIG_SETMASK, &old_mask, 0); /* restore old mask */
-	return (pid);
+	return pid;
 }
 

@@ -20,8 +20,7 @@ void doinput(void)
 
 	signal(SIGINT, sigint_handler);
 	signal(SIGWINCH, sigwinch_handler);
-	while (1)
-	{
+	while (1) {
 		read_input(&cc, ibuf); /* read from stdin */
 		if (cc <= 0)
 			continue;
@@ -31,7 +30,7 @@ void doinput(void)
 		else
 			write(gl_master, ibuf, cc); /* write to pty master */
 	}
-	error("Should not be reached",""); /* not reached */
+	error("Should not be reached", ""); /* not reached */
 }
 
 /* copy output from the pty, suspended in rz_mode() */
@@ -41,21 +40,20 @@ void dooutput(void)
 	char obuf[BUFSIZ];
 
 #ifdef DEBUG
-	printf("child_output: %i\n", (int) getpid());
+	printf("child_output: %i\n", (int)getpid());
 #endif
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	close(0);
 	close(gl_slave);
-	while (1)
-	{
-		cc = read(gl_master,obuf,sizeof(obuf)); /* read from pty master */
+	while (1) {
+		cc = read(gl_master, obuf, sizeof(obuf)); /* read from pty master */
 		if (cc <= 0)
 			continue;
 
-		write(1,obuf,cc); /* write to stdout */
+		write(1, obuf, cc); /* write to stdout */
 	}
-	error("Should not be reached",""); /* not reached */
+	error("Should not be reached", ""); /* not reached */
 }
 
 /* Launch the remote shell.
@@ -65,10 +63,10 @@ void dooutput(void)
 void doshell(int ac, char **av, char **shav)
 {
 	char  **argv;
-	int i,j;
+	int i, j;
 
 #ifdef DEBUG
-	printf("child_shell: %i\n", (int) getpid());
+	printf("child_shell: %i\n", (int)getpid());
 #endif
 	initslave();
 	printf("\n");
@@ -87,7 +85,7 @@ void doshell(int ac, char **av, char **shav)
 		printf("[%s] ", argv[i]);
 	printf("\n");
 #endif
-	execvp(shav[0],argv);
-	error("execvp %s\n",shav[0]);
+	execvp(shav[0], argv);
+	error("execvp %s\n", shav[0]);
 	fail();
 }

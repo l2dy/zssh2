@@ -19,11 +19,9 @@ char *zprompt(void)
 	char                 *tmp;
 	char                 *line;
 
-	if (!prompt)
-	{
+	if (!prompt) {
 		prompt = "zssh > ";
-		if ((tmp = getenv("HOSTNAME")))
-		{
+		if ((tmp = getenv("HOSTNAME"))) {
 			tmp = str_cat("zssh@", tmp);
 			prompt = str_cat(tmp, " > ");
 			free(tmp);
@@ -38,21 +36,21 @@ char *zprompt(void)
 	if (line[0])    /* line != "" */
 		add_history(line);
 #ifdef DEBUG
-	printf("read: >%s<\n",line);
+	printf("read: >%s<\n", line);
 #endif
-	return (line);
+	return line;
 }
 
 /* parse a line applying some shell expansions */
 int zparse(char **str, char ***av, int *ac)
 {
 	if (pc_test_escapes(*str) < 0)
-		return (-1);
+		return -1;
 	if (pc_tilde_expansion(str) < 0)
-		return (-1);
+		return -1;
 	pc_split_words(*str, ac, av);
 	if (*ac == 1)
-		return (-1);
+		return -1;
 	pc_quote_removal(*av, ac);
 	glob_args(ac, av);
 #ifdef DEBUG
@@ -63,29 +61,25 @@ int zparse(char **str, char ***av, int *ac)
 			printf("arg %i >%s<\n", i, (*av)[i]);
 	}
 #endif
-	return (0);
+	return 0;
 }
 
 
 int zrun(char **av)
 {
-	int i,j;
+	int i, j;
 
 	gl_repeat = 0;
 	j = 1;
-	do
-	{
+	do {
 		i = zaction(av, gl_master, gl_slave);
 		if (i >= 100)
 			break; /* avoid repeating C_* >= 100 actions */
 		if (gl_repeat && j)
-		{
 			av++;
-		}
 		j = 0;
-	}
-	while (gl_repeat);
-	return (i);
+	} while (gl_repeat);
+	return i;
 }
 
 
@@ -118,18 +112,16 @@ int zaction(char **av, int master, int slave)
 	for (pt = cmdtab; pt->name && strcmp(pt->name, av[0]); pt++)
 		;
 	gl_child_rz = 0;
-	pt->f(av,master);
+	pt->f(av, master);
 	while (gl_child_rz)
 		sigsuspend(&gl_sig_mask);
 	gl_child_rz = 0;
-	if (gl_interrupt)
-	{
+	if (gl_interrupt) {
 		printf("\nInterrupted !\n");
 		gl_interrupt = 0;
 		tcflush(master, TCIOFLUSH);
 		tcflush(slave, TCIOFLUSH);
-		for (i = 0; i < 99; i++)
-		{
+		for (i = 0; i < 99; i++) {
 			write(master, &c, 1);
 			tcdrain(master);
 		}
@@ -145,5 +137,5 @@ int zaction(char **av, int master, int slave)
 	tcsetattr(0, TCSANOW, &gl_tt);
 /*   tcsetattr(gl_slave, TCSAFLUSH, &gl_tt2); */
 /*   tcsetattr(0, TCSAFLUSH, &gl_tt); */
-	return (pt->n);
+	return pt->n;
 }
