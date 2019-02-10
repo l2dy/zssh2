@@ -102,6 +102,8 @@ void zact_hook_sub(char **av, int master)
 		signal(SIGWINCH, SIG_DFL);
 		dup2(master, 0);
 		dup2(master, 1);
+		close(master);
+		close(gl_slave);
 		execvp(av[0], av);
 		error("error: execvp %s\n", av[0]);
 		exit(1);
