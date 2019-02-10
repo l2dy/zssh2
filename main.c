@@ -63,8 +63,8 @@ void rz_mode(void)
 
 	gl_local_shell_mode = 1;
 	kill(gl_child_output, SIGSTOP); /* suspend output */
-	printf("\n");
 	printf("\r");
+	printf("\n");
 /*   tcgetattr(0, &gl_rtt); */
 	tcgetattr(gl_slave, &gl_tt2);   /* save slave tty state */
 	/* TCSAFLUSH causes problems on some systems */
