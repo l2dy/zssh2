@@ -65,7 +65,6 @@ void rz_mode(void)
 	kill(gl_child_output, SIGSTOP); /* suspend output */
 	printf("\r");
 	printf("\n");
-/*   tcgetattr(0, &gl_rtt); */
 	tcgetattr(gl_slave, &gl_tt2);   /* save slave tty state */
 	/* TCSAFLUSH causes problems on some systems */
 	tcsetattr(0, TCSANOW, &gl_tt);  /* was in raw mode */
