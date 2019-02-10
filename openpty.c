@@ -331,7 +331,6 @@ void initslave(void)
 	if (dup2(gl_slave, 0) < 0)
 		error(0, "dup2(slave, 0)");
 	dup2(gl_slave, 1);
-	dup2(gl_slave, 2);
 	close(gl_slave);
 }
 

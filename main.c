@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	if (!sfork(&gl_child_output))
 		dooutput();
 	if (!sfork(&gl_child_shell))
-		doshell(argc, argv, gl_shav); /* std{in,out,err} mapped to gl_slave in initslave() */
+		doshell(argc, argv, gl_shav); /* std{in,out} mapped to gl_slave in initslave() */
 
 	doinput();
 	return 0;
