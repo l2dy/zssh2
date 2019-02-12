@@ -56,7 +56,6 @@ void my_tcsetpgrp(int fd, int pgrpid);
 void my_cfmakeraw(struct termios *pt);
 void testslave(char *ttyname);
 void initslave(void);
-void call_grantpt(void);
 
 /* pc_test_escapes.c */
 int pc_test_escapes(char *str);

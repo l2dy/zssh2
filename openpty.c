@@ -334,28 +334,3 @@ void initslave(void)
 	close(gl_slave);
 }
 
-
-#ifdef HAVE_GRANTPT
-/* Call grantpt(). If it fails, prompt the user whether
- * to continue anyway despite the security issue.
- */
-void call_grantpt(void)
-{
-	static int answered = 0;
-
-	/* SIGCHLD should NOT be handled at this point otherwise it
-	 * may interfere with grantpt
-	 */
-	signal(SIGCHLD, SIG_DFL);
-
-	if (grantpt(gl_master) < 0 && !answered) {
-		perror("grantpt");
-		printf("*** Calling grantpt() failed. This can be a security issue\n"
-		       "*** as another user may be able to spy on this session\n");
-		if (!ask_user("Do you want to continue anyway ?", 0, 1))
-			error("aborting\n", "");
-		answered = 1;
-	}
-}
-#endif /* HAVE_GRANTPT */
-
