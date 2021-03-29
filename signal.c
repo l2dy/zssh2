@@ -75,8 +75,7 @@ RETSIGTYPE sigint_handler(int sig)
 	signal(SIGINT, sigint_handler);
 	gl_repeat = 0;
 	if (gl_child_rz) {
-		kill(gl_child_rz, SIGKILL); /* SIGTERM seems to cause sz to interfere with ^Xs */
-		/*                            so let's be more persuasive =) */
+		kill(gl_child_rz, SIGTERM);
 		gl_interrupt = 1;
 	}
 }
