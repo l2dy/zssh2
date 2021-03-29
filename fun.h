@@ -87,7 +87,7 @@ char *str_n_dup(char *str, int n);
 char *str_cat(char *str1, char *str2);
 void str_sub_repl(char **str, int sub_beg, int sub_len, char *sub_repl);
 void *smalloc(unsigned int n);
-int sfork(volatile int *pid_child);
+int sfork(volatile sig_atomic_t *pid_child);
 
 /* zmodem.c */
 char *zprompt(void);

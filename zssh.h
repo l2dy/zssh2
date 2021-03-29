@@ -42,7 +42,6 @@
 #include <string.h>
 #include <time.h>
 #include <grp.h>
-#include <utmp.h>
 #include <signal.h>
 #include <ctype.h>
 

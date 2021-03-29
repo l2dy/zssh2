@@ -25,6 +25,10 @@ static char gl_slavename[GL_SLAVENAMELEN + 1] = { 0 };
 #include <util.h>
 #endif
 
+#ifdef HAVE_LIBUTIL_H
+#include <libutil.h>
+#endif
+
 void getmaster(void)
 {
 #ifdef DEBUG

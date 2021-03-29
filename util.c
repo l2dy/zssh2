@@ -101,7 +101,7 @@ void *smalloc(unsigned int n)
  * if pid_child is non zero, also avoids race condition that would occur
  * if the child's pid must be known by the parent *before* the child dies.
  */
-int sfork(volatile int *pid_child)
+int sfork(volatile sig_atomic_t *pid_child)
 {
 	sigset_t mask;
 	sigset_t old_mask;
