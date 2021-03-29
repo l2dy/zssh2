@@ -57,7 +57,7 @@ AC_CONFIG_HEADER(config.h)
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h sys/time.h termios.h unistd.h \
-	err.h sys/cdefs.h sys/param.h util.h libutil.h stropts.h)
+	err.h sys/cdefs.h sys/param.h util.h libutil.h pty.h stropts.h)
 
 
 
