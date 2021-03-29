@@ -19,6 +19,7 @@ void doinput(void)
 	unsigned char ibuf[BUFSIZ];
 
 	signal(SIGINT, sigint_handler);
+	siginterrupt(SIGINT, 1);
 	signal(SIGWINCH, sigwinch_handler);
 	while (1) {
 		read_input(&cc, ibuf); /* read from stdin */
