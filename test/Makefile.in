@@ -48,7 +48,11 @@ T3		= ttyprint
 T3_SRC		= $(T3:=.c)
 T3_OBJS		= $(T3_SRC:.c=.o) ../util.o ../openpty.o
 
-PRGS		= $(T1) $(T2) $(T3)
+T4		= signal_test
+T4_SRC		= $(T4:=.c)
+T4_OBJS		= $(T4_SRC:.c=.o)
+
+PRGS		= $(T1) $(T2) $(T3) $(T4)
 INCL		= ../config.h ../zssh.h
 
 all: $(PRGS) 
@@ -61,6 +65,9 @@ ttydump : $(EXTRA_DEPS) $(T2_OBJS)
 
 ttyprint : $(EXTRA_DEPS) $(T3_OBJS)
 	$(CC) -o $@  $(T3_OBJS) $(LDFLAGS) $(LIBS) 
+
+signal_test : $(EXTRA_DEPS) $(T4_OBJS)
+	$(CC) -o $@  $(T4_OBJS) $(LDFLAGS) $(LIBS)
 
 TAGS :
 	etags *.[ch]

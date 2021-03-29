@@ -36,10 +36,17 @@ RETSIGTYPE sigchld_handler(int sig)
 	int pid;
 	int s;
 	int die;
+	sigset_t sigchld_mask;
 
 	old_errno = errno;
 	signal(SIGCHLD, sigchld_handler);
 	die = 0;
+
+	/* unblock SIGCHLD, avoid missing new SIGCHLDs on return */
+	sigemptyset(&sigchld_mask);
+	sigaddset(&sigchld_mask, SIGCHLD);
+	sigprocmask(SIG_UNBLOCK, &sigchld_mask, NULL);
+
 	while (1) {
 		errno = EINTR;
 		pid = 0;
