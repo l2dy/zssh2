@@ -68,7 +68,8 @@ void rz_mode(void)
 	tcgetattr(gl_slave, &gl_tt2);   /* save slave tty state */
 	/* TCSAFLUSH causes problems on some systems */
 	tcsetattr(0, TCSANOW, &gl_tt);  /* was in raw mode */
-	for (i = 0; i < 100; ) {        /* action codes >= 100 exit */
+	i = 0;
+	while (i < 100) {               /* action codes >= 100 exit */
 		line = zprompt();
 		if (zparse(&line, &av, &ac) < 0)
 			continue;
