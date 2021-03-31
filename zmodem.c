@@ -121,7 +121,7 @@ int zaction(char **av, int master, int slave)
 		gl_interrupt = 0;
 		tcflush(master, TCIOFLUSH);
 		tcflush(slave, TCIOFLUSH);
-		for (i = 0; i < 99; i++) {
+		for (i = 0; i < 10; i++) { /* double CAN*5 */
 			write(master, &c, 1);
 			tcdrain(master);
 		}
