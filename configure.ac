@@ -56,7 +56,7 @@ dnl Checks for header files.
 AC_CONFIG_HEADERS([config.h])
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h sys/time.h termios.h unistd.h \
-	err.h sys/cdefs.h sys/param.h util.h libutil.h pty.h stropts.h)
+	err.h sys/cdefs.h sys/param.h util.h libutil.h pty.h)
 
 
 
@@ -92,40 +92,18 @@ fi
 
 dnl Checks for library functions.
 AC_FUNC_GETPGRP
-AC_CHECK_FUNCS(strdup getpt isastream tcsetpgrp)
+AC_CHECK_FUNCS(strdup tcsetpgrp)
 
 
-dnl Check what is available for tty/pty allocation 
-AC_CHECK_FUNCS(_getpty getpseudotty grantpt unlockpt)
+dnl Check if openpty is available for tty/pty allocation
 AC_CHECK_FUNCS(openpty,,
   [AC_CHECK_LIB(util,openpty,
     [AC_DEFINE(HAVE_OPENPTY)
-    LIBS="$LIBS -lutil"]
-  )]
+    LIBS="$LIBS -lutil"],
+    [AC_MSG_ERROR([
+*** openpty() was not found.
+    ])])]
 )
-AC_MSG_CHECKING(for pseudo ttys)
-if test -c /dev/getpty && test $ac_cv_func_getpseudotty = yes
-then
-  AC_DEFINE(HAVE_GETPSEUDOTTY, 1, [Define this if you have getpseudotty() (DYNIX/ptx 2.1)])
-  AC_MSG_RESULT(getpseudotty)
-else
-if test -c /dev/ptmx && test -c /dev/pts/0
-then
-  AC_DEFINE(HAVE_DEV_PTMX, 1, [Define if you have SYSV-style /dev/ptmx and /dev/pts/.])
-  AC_MSG_RESULT(streams ptys)
-else
-if test -c /dev/ptc && test -c /dev/pts || test -d /dev/pts
-then
-  AC_DEFINE(HAVE_DEV_PTS_AND_PTC, 1, [Define if you have /dev/pts and /dev/ptc devices (as in AIX).])
-  AC_MSG_RESULT(/dev/pts and /dev/ptc)
-else
-if test -c /dev/ptyp10
-then
-  AC_DEFINE(HAVE_DEV_PTYP10, 1, [Define this if you have sco-style pty:s (ptyp0, ..., ptyp9, ptyp10...)])
-  AC_MSG_RESULT(sco-style ptys)
-else
-  AC_MSG_RESULT(bsd-style ptys)
-fi fi fi fi
 
 
 dnl Setting output variables
@@ -136,4 +114,3 @@ AC_SUBST(TERMCAP_LIB)
 
 AC_CONFIG_FILES([Makefile fake_readline/Makefile test/Makefile])
 AC_OUTPUT
-

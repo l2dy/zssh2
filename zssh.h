@@ -30,9 +30,6 @@
 #ifndef   __ZSSH_H__
 #define   __ZSSH_H__
 
-/* for getpt and ptsname in stdlib.h */
-#define _GNU_SOURCE
-
 #include "config.h"
 
 #include <stdlib.h>
@@ -163,8 +160,6 @@ extern char                     **gl_shav;      /* remote shell argv, defaults t
 
 #include "parse.h"
 
-int     grantpt(int);
-int     unlockpt(int);
 #include "fun.h"
 
 #endif /* __ZSSH_H__ */
