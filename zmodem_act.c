@@ -57,8 +57,7 @@ void zact_help(char **av, int master)
 	printf("  - If you get stuck in rz/sz (for example you've just ran rz, but you\n");
 	printf("    then decided not to transmit anything), hit a dozen ^X to stop it\n");
 	printf("  - Use sz -y <files> to overwrite remote files\n\n");
-	printf("This shell supports line edition, history, completion, wildcards and escapes\n\n");
-	printf("Report bugs to <gounter@users.sourceforge.net>\n");
+	printf("This shell supports line edition, history, completion, wildcards and escapes\n");
 }
 
 void zact_version(char **av, int master)

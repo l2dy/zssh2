@@ -7,7 +7,7 @@ Release		: 1
 Copyright	: GPL
 Group		: Applications/Communications
 Source		: download.sourceforge.net:/pub/sourceforge/zssh/zssh-%{ZSSHVER}.tgz
-packager        : Matthieu Lucotte <gounter@users.sourceforge.net>
+packager        : Zero King <l2dy@users.sourceforge.net>
 %description
 zssh (Zmodem SSH) is a program for interactively transferring files to/from
 a remote machine while using the secure shell (ssh). It is intended to be a
@@ -29,9 +29,7 @@ make install
 
 %files
 %doc CHANGES COPYING FAQ INSTALL README VERSION
-/usr/local/bin/zssh
-/usr/local/bin/ztelnet
-/usr/local/man/man1/zssh.1
-/usr/local/man/man1/ztelnet.1
+/usr/local/bin/zssh2
+/usr/local/man/man1/zssh2.1
 
 

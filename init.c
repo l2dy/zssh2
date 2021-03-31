@@ -9,7 +9,6 @@
 */
 
 #include "zssh.h"
-#include "version.h"
 
 
 int gl_master;                                  /* pty fd */
@@ -77,8 +76,8 @@ void init_gl(int ac, char **av)
 
 void version(int exit_prog)
 {
-	printf("zssh version");
-	printf(ZSSH_VERSION);
+	printf(PACKAGE_STRING);
+	printf("\nCopyright (C) 2019-2021 Zero King <l2dy@users.sourceforge.net>");
 	printf("\nCopyright (C) 2001 Matthieu Lucotte <gounter@users.sourceforge.net>\n");
 	printf("zssh comes with ABSOLUTELY NO WARRANTY. Use at your own risk.\n");
 	printf("This is free software, and you are welcome to redistribute it\n");
@@ -92,8 +91,7 @@ void version(int exit_prog)
 void usage(void)
 {
 	printf("\
-Usage: zssh    [zssh options] [--] [ssh options]\n\
-       ztelnet [zssh options] [--] [telnet options]\n\
+Usage: zssh2    [zssh options] [--] [ssh options]\n\
 \n\
   Options:\n\
     -f                Do not ask user any question\n\

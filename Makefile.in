@@ -40,9 +40,9 @@ EXTRA_DEPS	=  @EXTRA_DEPS@
 #End of system specific vars
 
 
-NAME		= zssh
-VERSION		= $(shell cat VERSION)
-PRGS		= zssh ztelnet
+NAME		= zssh2
+VERSION		= @PACKAGE_VERSION@
+PRGS		= zssh2
 MANS		= $(PRGS:=.1)
 # Files to be installed
 FILES		= $(PRGS) $(MANS)
@@ -67,16 +67,12 @@ RPMBUILDARCH	= $(shell rpm --showrc | grep "^build arch" | cut -d: -f2 | xargs e
 
 all: $(PRGS)
 
-$(NAME) : $(EXTRA_DEPS) version.h ${OBJS}
+$(NAME) : $(EXTRA_DEPS) ${OBJS}
 	$(CC) -o $(NAME) $(LDFLAGS) $(OBJS) $(LIBS)
-
-ztelnet : $(NAME)
-	ln -f $(NAME) $@
 
 install : all
 	$(INSTALL) -m 0755 -d @bindir@
 	$(INSTALL) -m 0755 zssh @bindir@
-	ln -f @bindir@/zssh  @bindir@/ztelnet
 	$(INSTALL) -m 0755 -d @mandir@/man1
 	$(INSTALL) -m 0644 $(MANS) @mandir@/man1
 
@@ -110,9 +106,6 @@ $(RPMSPEC) : $(RPMSPEC:.spec=.spec.tpl)
 	cat $(RPMSPEC:.spec=.spec.tpl) >> $(RPMSPEC)
 
 
-version.h : VERSION
-	echo '#define ZSSH_VERSION "' `cat VERSION`'"' > version.h
-
 fun.h : $(SRC)
 	protos -o fun.h $(SRC)
 
@@ -135,7 +128,6 @@ autoconf:
 
 
 $(OBJS) : $(INCL)
-init.o : version.h
 
 .PHONY: distclean clean install uninstall rpm fake_readline
 FORCE:
