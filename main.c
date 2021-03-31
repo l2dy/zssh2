@@ -63,6 +63,7 @@ void rz_mode(void)
 
 	gl_local_shell_mode = 1;
 	kill(gl_child_output, SIGSTOP); /* suspend output */
+	signal(SIGWINCH, SIG_DFL);
 	printf("\r");
 	printf("\n");
 	tcgetattr(gl_slave, &gl_tt2);   /* save slave tty state */
@@ -81,6 +82,7 @@ void rz_mode(void)
 		free(av);
 	}
 	tcsetattr(0, TCSANOW, &gl_rtt); /* restore raw term */
+	sigwinch_handler(SIGWINCH);     /* update window size */
 	kill(gl_child_output, SIGCONT); /* resume output */
 	gl_local_shell_mode = 0;
 }
