@@ -130,12 +130,7 @@ int zaction(char **av, int master, int slave)
 		flush(master, 50);
 	}
 
-/*   tcflush(gl_slave, TCIOFLUSH); */
-/*   tcflush(gl_master, TCIOFLUSH); */
-/*   kill(gl_child_output, SIGCONT); */
 	tcsetattr(gl_slave, TCSANOW, &gl_tt2);
 	tcsetattr(0, TCSANOW, &gl_tt);
-/*   tcsetattr(gl_slave, TCSAFLUSH, &gl_tt2); */
-/*   tcsetattr(0, TCSAFLUSH, &gl_tt); */
 	return pt->n;
 }
