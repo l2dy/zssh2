@@ -1,5 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(zmodem.c)
+AC_INIT
+AC_CONFIG_SRCDIR([zmodem.c])
 
 dnl Initialising output variables
 EXTRA_DEPS=""
@@ -45,16 +46,14 @@ dnl Check if the C compiler understands -Wall
 OLD_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -Wall"
 AC_CACHE_CHECK([that the C compiler understands -Wall],zssh_cv_wall, [
-    AC_TRY_COMPILE([ ],[ ],
-        zssh_cv_wall=yes, zssh_cv_wall=no)])
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ ]], [[ ]])],[zssh_cv_wall=yes],[zssh_cv_wall=no])])
 if test x"$zssh_cv_wall" != x"yes"; then
   CFLAGS="$OLD_CFLAGS"
 fi
 
 
 dnl Checks for header files.
-AC_CONFIG_HEADER(config.h)
-AC_HEADER_STDC
+AC_CONFIG_HEADERS([config.h])
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS(fcntl.h paths.h sys/ioctl.h sys/time.h termios.h unistd.h \
 	err.h sys/cdefs.h sys/param.h util.h libutil.h pty.h stropts.h)
@@ -93,7 +92,6 @@ fi
 
 dnl Checks for library functions.
 AC_FUNC_GETPGRP
-AC_TYPE_SIGNAL
 AC_CHECK_FUNCS(strdup getpt isastream tcsetpgrp)
 
 
@@ -136,5 +134,6 @@ AC_SUBST(EXTRA_CFLAGS)
 AC_SUBST(EXTRA_LIBS)
 AC_SUBST(TERMCAP_LIB)
 
-AC_OUTPUT(Makefile fake_readline/Makefile test/Makefile)
+AC_CONFIG_FILES([Makefile fake_readline/Makefile test/Makefile])
+AC_OUTPUT
 

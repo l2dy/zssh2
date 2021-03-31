@@ -35,7 +35,6 @@
 
 #include "config.h"
 
-#ifdef STDC_HEADERS
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -49,7 +48,6 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#endif /* STDC_HEADERS */
 
 
 

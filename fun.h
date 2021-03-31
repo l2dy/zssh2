@@ -67,9 +67,9 @@ void pc_quote_removal(char **av, int *ac);
 
 /* signal.c */
 void print_process_status(int pid, int s);
-RETSIGTYPE sigchld_handler(int sig);
-RETSIGTYPE sigint_handler(int sig);
-RETSIGTYPE sigwinch_handler(int sig);
+void sigchld_handler(int sig);
+void sigint_handler(int sig);
+void sigwinch_handler(int sig);
 
 /* split_words.c */
 void pc_new_tab(int *argc, char ***argv);

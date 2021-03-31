@@ -30,7 +30,7 @@ void print_process_status(int pid, int s)
 #endif
 
 
-RETSIGTYPE sigchld_handler(int sig)
+void sigchld_handler(int sig)
 {
 	int old_errno;
 	int pid;
@@ -70,7 +70,7 @@ RETSIGTYPE sigchld_handler(int sig)
 	}
 }
 
-RETSIGTYPE sigint_handler(int sig)
+void sigint_handler(int sig)
 {
 	signal(SIGINT, sigint_handler);
 	gl_repeat = 0;
@@ -80,7 +80,7 @@ RETSIGTYPE sigint_handler(int sig)
 	}
 }
 
-RETSIGTYPE sigwinch_handler(int sig)
+void sigwinch_handler(int sig)
 {
 	signal(SIGWINCH, sigwinch_handler);
 	ioctl(0, TIOCGWINSZ, &gl_win);
