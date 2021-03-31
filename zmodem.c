@@ -125,9 +125,9 @@ int zaction(char **av, int master, int slave)
 			write(master, &c, 1);
 			tcdrain(master);
 		}
-		flush(master);
-		flush(slave);
-		flush(master);
+		flush(master, 50);
+		flush(slave, 100);
+		flush(master, 50);
 	}
 
 /*   tcflush(gl_slave, TCIOFLUSH); */

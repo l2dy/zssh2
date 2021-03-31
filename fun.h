@@ -46,7 +46,7 @@ int mi_is_whitespace(char chr);
 void error(char *s1, char *s2);
 int error_msg(char *s1, char *s2);
 void op_shift(char **argv, int n);
-void flush(int fd);
+void flush(int fd, useconds_t read_timeout);
 int ask_user(char *question, int def_ans, int forced_ans);
 
 /* openpty.c */

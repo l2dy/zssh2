@@ -78,17 +78,16 @@ void op_shift(char **argv, int n)
 	argv[i - n] = 0;
 }
 
-
-void flush(int fd)
+void flush(int fd, useconds_t read_timeout)
 {
 	int i, mode, tot = 0;
-	char buff[4096];
+	char buff[ZSSH_IO_BUFSIZ];
 
 	mode = fcntl(fd, F_GETFL, 0);
 	fcntl(fd, F_SETFL, mode | O_NONBLOCK);
 	do {
-		tot += i = read(fd, buff, 4096);
-		usleep(50);
+		tot += i = read(fd, buff, ZSSH_IO_BUFSIZ);
+		usleep(read_timeout);
 	} while (i > 0);
 	fcntl(fd, F_SETFL, mode);
 #ifdef DEBUG
