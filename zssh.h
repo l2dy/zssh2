@@ -124,7 +124,7 @@
 #define min(a, b)        ((a) < (b) ? (a) : (b))
 #define max(a, b)        ((a) > (b) ? (a) : (b))
 
-#define ZSSH_IO_BUFSIZ max(BUFSIZ, 8192)
+#define ZSSH_IO_BUFSIZ max(BUFSIZ, 1024)
 
 typedef struct {
 	char         *name;
