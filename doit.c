@@ -47,6 +47,10 @@ void dooutput(void)
 	signal(SIGINT, SIG_IGN);
 	close(0);
 	close(gl_slave);
+	if (gl_copty) {
+		close(gl_hook_master);
+		close(gl_hook_slave);
+	}
 	while (1) {
 		cc = read(gl_master, obuf, sizeof(obuf)); /* read from pty master */
 		if (cc <= 0)

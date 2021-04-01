@@ -134,19 +134,23 @@ typedef struct {
 extern t_act_tab cmdtab[];
 
 
-extern int gl_master;                                   /* pty fd */
-extern int gl_slave;                                    /* tty fd */
+extern int gl_master;                                   /* ssh pty fd */
+extern int gl_slave;                                    /* ssh tty fd */
+extern int gl_hook_master;                              /* hook pty fd */
+extern int gl_hook_slave;                               /* hook tty fd */
 
 extern int gl_main_pid;
 extern volatile sig_atomic_t gl_child_output;           /* pid of child handling output from the pty */
 extern volatile sig_atomic_t gl_child_shell;            /* pid of shell (ssh) */
 extern volatile sig_atomic_t gl_child_rz;               /* pid of child forked for use in the local shell */
+extern volatile sig_atomic_t gl_child_read;             /* pid of hook pty reader */
 
 extern int gl_local_shell_mode;
 
 extern volatile sig_atomic_t gl_interrupt;
 extern volatile sig_atomic_t gl_repeat; /* repeat action forever */
 extern int gl_force;                    /* don't ask user questions */
+extern int gl_copty;                    /* attach hook to copty */
 
 extern struct termios gl_tt;            /* initial term */
 extern struct termios gl_rtt;           /* raw mode term */

@@ -67,6 +67,8 @@ void sigchld_handler(int sig)
 			die = 1;
 		if (pid == gl_child_rz)
 			gl_child_rz = 0;
+		if (pid == gl_child_read)
+			gl_child_read = 0;
 	}
 }
 

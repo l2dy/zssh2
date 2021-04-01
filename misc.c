@@ -128,4 +128,3 @@ int ask_user(char *question, int def_ans, int forced_ans)
 	}
 	return res;
 }
-

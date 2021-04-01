@@ -121,3 +121,19 @@ int sfork(volatile sig_atomic_t *pid_child)
 	return pid;
 }
 
+void copy_rz_stream(int read_fd, int write_fd) {
+	ssize_t cr, cw;
+	char buf[ZSSH_IO_BUFSIZ];
+	while (gl_child_rz) {
+		cr = read(read_fd, buf, sizeof(buf)); /* read from ssh pty */
+		if (cr <= 0)
+			break;
+		cw = write(write_fd, buf, cr); /* write to hook process */
+		if (cw < 0) {
+			break;
+		}
+		if (cr != cw) {
+			fprintf(stderr, "error: partial write, %zd != %zd\n", cr, cw);
+		}
+	}
+}

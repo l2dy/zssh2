@@ -88,6 +88,7 @@ char *str_cat(char *str1, char *str2);
 void str_sub_repl(char **str, int sub_beg, int sub_len, char *sub_repl);
 void *smalloc(unsigned int n);
 int sfork(volatile sig_atomic_t *pid_child);
+void copy_rz_stream(int read_fd, int write_fd);
 
 /* zmodem.c */
 char *zprompt(void);

@@ -96,13 +96,26 @@ void zact_repeat(char **av, int master)
 void zact_hook_sub(char **av, int master)
 {
 	tcsetattr(gl_slave, TCSAFLUSH, &gl_rtt);
+	if (gl_copty) {
+		tcsetattr(gl_hook_slave, TCSAFLUSH, &gl_rtt);
+	}
+
 	if (!sfork(&gl_child_rz)) {
 		signal(SIGINT, SIG_DFL);
 		signal(SIGWINCH, SIG_DFL);
-		dup2(master, 0);
-		dup2(master, 1);
-		close(master);
 		close(gl_slave);
+		if (gl_copty) {
+			close(gl_master);
+			close(gl_hook_master);
+			dup2(gl_hook_slave, 0);
+			dup2(gl_hook_slave, 1);
+			close(gl_hook_slave);
+		} else {
+			dup2(master, 0);
+			dup2(master, 1);
+			close(master);
+		}
+
 		execvp(av[0], av);
 		error("error: execvp %s\n", av[0]);
 		exit(1);
@@ -110,6 +123,14 @@ void zact_hook_sub(char **av, int master)
 #ifdef DEBUG
 	printf("launching %s (pid=%i) ...\n", av[0], gl_child_rz);
 #endif
+
+	if (gl_copty) {
+		if (!sfork(&gl_child_read)) {
+			copy_rz_stream(gl_hook_master, master);
+			exit(0);
+		}
+		copy_rz_stream(master, gl_hook_master);
+	}
 }
 
 void zact_hook(char **av, int master)
@@ -129,5 +150,3 @@ void zact_exit(char **av, int master)
 {
 	write(master, "\n", 1);
 }
-
-

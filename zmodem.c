@@ -116,6 +116,16 @@ int zaction(char **av, int master, int slave)
 	while (gl_child_rz)
 		sigsuspend(&gl_sig_mask);
 	gl_child_rz = 0;
+	if (gl_copty) {
+		if (gl_child_read) {
+			kill(gl_child_read, SIGTERM);
+		}
+		while (gl_child_read)
+			sigsuspend(&gl_sig_mask);
+		gl_child_read = 0;
+		tcflush(gl_hook_master, TCIOFLUSH);
+		tcflush(gl_hook_slave, TCIOFLUSH);
+	}
 	if (gl_interrupt) {
 		printf("\nInterrupted !\n");
 		gl_interrupt = 0;

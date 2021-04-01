@@ -102,6 +102,8 @@ void done(int ret)
 		kill(gl_child_rz, SIGTERM);
 	if (gl_child_shell)
 		kill(gl_child_shell, SIGTERM);
+	if (gl_child_read)
+		kill(gl_child_read, SIGTERM);
 	if (gl_child_output) {
 		usleep(500);
 		kill(gl_child_output, SIGTERM);
@@ -109,5 +111,3 @@ void done(int ret)
 	}
 	exit(ret);
 }
-
-

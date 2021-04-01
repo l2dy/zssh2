@@ -11,19 +11,23 @@
 #include "zssh.h"
 
 
-int gl_master;                                  /* pty fd */
-int gl_slave;                                   /* tty fd */
+int gl_master;                                  /* ssh pty fd */
+int gl_slave;                                   /* ssh tty fd */
+int gl_hook_master;                             /* hook pty fd */
+int gl_hook_slave;                              /* hook tty fd */
 
 int gl_main_pid;
 volatile sig_atomic_t gl_child_output;          /* pid of child handling output from the pty */
 volatile sig_atomic_t gl_child_shell;           /* pid of shell (ssh) */
 volatile sig_atomic_t gl_child_rz;              /* pid of child forked for use in the local shell */
+volatile sig_atomic_t gl_child_read;            /* pid of hook pty reader */
 
 int gl_local_shell_mode;
 
 volatile sig_atomic_t gl_interrupt;
 volatile sig_atomic_t gl_repeat;        /* repeat action forever */
 int gl_force;                           /* don't ask user questions */
+int gl_copty;                           /* attach hook to copty */
 
 struct termios gl_tt;                   /* initial term */
 struct termios gl_rtt;                  /* raw mode term */
@@ -41,8 +45,9 @@ void init_gl(int ac, char **av)
 	gl_master = gl_slave = 0;
 	gl_main_pid = getpid();
 	gl_child_shell = gl_child_output = 0;
-	gl_child_rz = 0;
+	gl_child_rz = gl_child_read = 0;
 	gl_force = 0;
+	gl_copty = 0;
 	sigemptyset(&gl_sig_mask);
 	sigprocmask(SIG_SETMASK, &gl_sig_mask, 0);
 	gl_local_shell_mode = 0;
@@ -187,6 +192,10 @@ void command_line_options(int *argc, char ***argv)
 			gl_force = 1;
 			shift = 1;
 		}
+		if (!strcmp(av[i], "--copty")) {
+			gl_copty = 1;
+			shift = 1;
+		}
 		if (shift) {
 			ac -= shift;
 			for (j = i + shift; av[j]; j++)
@@ -222,6 +231,3 @@ void init(int *argc, char ***argv)
 
 	signal(SIGCHLD, sigchld_handler);
 }
-
-
-
