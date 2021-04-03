@@ -30,6 +30,6 @@ https://www.ohse.de/uwe/software/lrzsz.html
 - Linux
 - FreeBSD
 - OpenBSD
-- macOS
+- macOS (with --copty)
 
 illumos support depends on https://www.illumos.org/issues/5386.

@@ -99,6 +99,8 @@ void usage(void)
 Usage: zssh2    [zssh options] [--] [ssh options]\n\
 \n\
   Options:\n\
+    --copty           Attach hook program to copty (for special OSes only)\n\
+\n\
     -f                Do not ask user any question\n\
     --force            \n\
 \n\
