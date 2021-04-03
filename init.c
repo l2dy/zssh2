@@ -54,18 +54,10 @@ void init_gl(int ac, char **av)
 	gl_interrupt = 0;
 	gl_escape = '@';
 	gl_shav = smalloc(4 * sizeof(char*));
-	if (strstr(av[0], "ztelnet")) {
-		gl_shav[0] = "telnet";
-		gl_shav[1] = "-8";
-		gl_shav[2] = "-E";
-		gl_shav[3] = 0;
-
-	} else {
-		gl_shav[0] = "ssh";
-		gl_shav[1] = "-e";
-		gl_shav[2] = "none";
-		gl_shav[3] = 0;
-	}
+	gl_shav[0] = "ssh";
+	gl_shav[1] = "-e";
+	gl_shav[2] = "none";
+	gl_shav[3] = 0;
 
 	/* initialize gl_tt from stdin */
 	if (tcgetattr(0, &gl_tt) < 0)
@@ -108,9 +100,8 @@ Usage: zssh2    [zssh options] [--] [ssh options]\n\
     --help            \n\
 \n\
     -s  cmd           run cmd as remote shell instead of the\n\
-    --shell cmd       default \"ssh -e none\" (zssh) \n\
-                           or \"telnet -8 -E\" (ztelnet) \n\
-                      ex: zssh -s \"rsh -x\" \n\
+    --shell cmd       default \"ssh -e none\" \n\
+                      ex: zssh -s \"telnet -8 -E\" \n\
 \n\
     -V                show version\n\
     --version         \n\

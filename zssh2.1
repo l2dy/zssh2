@@ -35,9 +35,6 @@ another tty/pty pair between the user and the local ssh process to plug
 either the user's tty (remote shell mode) or another process (file transfer
 mode) on the ssh connection.
 
-ztelnet behaves similarly to zssh, except telnet is used instead of ssh.
-It is equivalent to 'zssh -s "telnet -8 -E"'
-
 Files are transferred through the 
 .I zmodem
 protocol, using the
@@ -193,9 +190,9 @@ show basic help
 .TP
 .B --shell cmd
 run cmd as remote shell instead of the default 
-"ssh -e none" (zssh) or "telnet -8 -E" (ztelnet)
+"ssh -e none"
 .br
-ex: zssh -s "rsh -x"
+ex: zssh -s "telnet -8 -E"
 .TP
 
 .B -V

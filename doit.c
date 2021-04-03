@@ -63,7 +63,6 @@ void dooutput(void)
 
 /* Launch the remote shell.
  * shav defaults to [ "ssh" "-e" "none"  ] (zssh)
- *               or [ "telnet" "-8" "-E" ] (ztelnet)
  */
 void doshell(int ac, char **av, char **shav)
 {
