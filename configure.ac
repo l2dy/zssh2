@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([zssh2], [0.0.1])
+AC_INIT([zssh2], [0.0.2])
 AC_CONFIG_SRCDIR([zmodem.c])
 
 dnl Initialising output variables
